@@ -13,9 +13,15 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res) {
     var db = req.db; // the database we want to mess with
     var collection = db.get('userData');  // the collection in the database
-    var thingToPost = req.data;
+    var thingToPost = req.body.data;
     console.log(thingToPost);
-    collection.insert(req.data), function (error, doc) {
+    collection.insert({
+        'group_id' : "this is a group ID",
+        'errorButton' : [],
+        'isGoodButton' : [],
+        'createdAt' : Date(),
+        'unique_user_number' : ''// HOW DO I INCREMENT THE USERS?
+    }, function (error, doc) {
         if (error) {
           res.send("Could not create new user.");
         } else {
