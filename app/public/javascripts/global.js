@@ -30,12 +30,12 @@ function generateGroupIdPrepend(buttonNumber) {
 };
 
 function addNewUser() {
-    var newUser = {
-            'group_identifier': groupId,
-            'errorButton': [],
-            'thisIsGoodButton': [],
-            'created_at': Date()
-        }
+    // var newUser = {
+    //         'group_identifier': groupId,
+    //         'errorButton': [],
+    //         'thisIsGoodButton': [],
+    //         'created_at': Date()
+    //     }
 
     // db.collection.insert(newUser);
 

@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongo = require('mongodb');
 var monk = require('monk');
-var db = monk('localhost:27017/data'); // the database is folder 'data' in my home directory
+var db = monk('localhost:27017/userData'); // the database is folder 'data' in my home directory, database name is userData
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
