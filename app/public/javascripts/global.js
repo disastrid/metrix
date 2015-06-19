@@ -3,8 +3,6 @@
 $(document).ready(function() {
     var groupId = '';
     $("body").on("click", "#button01", function() {
-        counter.add();
-        console.log(counter);
         groupId = "group 1";
         generateGroupIdPrepend(1);
         console.log(groupId);
