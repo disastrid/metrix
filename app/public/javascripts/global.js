@@ -2,6 +2,7 @@
 
 $(document).ready(function() {
     var groupId = '';
+    var name = 'spanky';
     $("body").on("click", "#button01", function() {
         groupId = "group 1";
         generateGroupIdPrepend(1);
@@ -27,32 +28,43 @@ function generateGroupIdPrepend(buttonNumber) {
     }
 };
 
-function addNewUser() {
-    // var newUser = {
-    //         'group_identifier': groupId,
-    //         'errorButton': [],
-    //         'thisIsGoodButton': [],
-    //         'created_at': Date()
-    //     }
+function addUser(event) {
+    event.preventDefault();
 
-    // db.collection.insert(newUser);
+    // Super basic validation - increase errorCount variable if any fields are blank
+    var errorCount = 0;
+    $('#addUser input').each(function(index, val) {
+        if($(this).val() === '') { errorCount++; }
+    });
+
+    // Check and make sure errorCount's still at zero
+    if(errorCount === 0) {
+
+        // If it is, compile all user info into one object
+        var newUser = {
+            'group_identifier': groupId, 
+            'date_created': Date(),
+            'error_button': [],
+            'isGoodButton': [],
+            'unique_identifier': name
+        }
 
         // Use AJAX to post the object to our adduser service
         $.ajax({
-            url: '',
             type: 'POST',
-            data: {
-            'group_identifier': groupId,
-            'errorButton': [],
-            'thisIsGoodButton': []
-        }, // the JSON we created first in this function
+            data: newUser,
+            url: '/users/adduser', // this is the route, nothing more
             dataType: 'JSON'
         }).done(function( response ) {
 
             // Check for successful (blank) response
             if (response.msg === '') {
 
-                console.log("success!");
+                // Clear the form inputs
+                $('#addUser fieldset input').val('');
+
+                // Update the table
+                populateTable();
 
             }
             else {
@@ -62,19 +74,12 @@ function addNewUser() {
 
             }
         });
-    
-};
-
-function getNextSequence(name) {
-   var ret = db.counters.findAndModify(
-          { 
-            query: { _id: "incrementer" },
-            update: { $inc: { seq: 1 } },
-            new: true
-          }
-   );
-
-   return ret.seq;
+    }
+    else {
+        // If errorCount is more than 0, error out
+        alert('Please fill in all fields');
+        return false;
+    }
 };
 
 // Fill table with data
@@ -93,7 +98,7 @@ function getUserIdNumber() {
         // This is the data that will be displayed in the alert box when the study is over. 
         // TO DO: Find a way to get only THIS user's info, not ALL users' info.
         $.each(data, function(){
-            returnedData += "Thanks! Now please fill out the survey. Your user reference is: " + this.unique_user_number;
+            returnedData += "Thanks! Now please fill out the survey. Your user reference is: " + this.unique_identifier;
         });
 
         // Inject the whole content string into our JS alert. This <div id="alertMessage"><p></p></div> will have to exist somewhere.
