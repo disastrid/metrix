@@ -1,0 +1,23 @@
+extends layout
+
+block content
+    script(src='/javascripts/remote.js')
+    #wrapper
+        h1="remote button panel"
+        #container
+            a(href='#')
+                #button.start
+                    p.buttonText START PERFORMANCE
+
+            a(href='#')
+                #button.pause
+                    p.buttonText PAUSE PERFORMANCE
+
+
+            a(href='#')
+                #button.resume
+                    p.buttonText RESUME PERFORMANCE
+            a(href='#')
+                #button.end
+                    p.buttonText END PERFORMANCE
+    // /WRAPPER

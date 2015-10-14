@@ -1,0 +1,26 @@
+extends layout
+
+block content
+
+    // Wrapper
+    #overlay
+        #insideOverlay.textBox 
+    #wrapper
+
+        #container
+            #first
+                a(href='#')
+                    #button.insertButton1
+                        p.buttonText Group 1
+                a(href='#')
+                    #button.insertButton2
+                        p.buttonText Group 2
+        #second
+            a(href='#')
+                #button.isGoodButton
+                    p.studyButtonText :)
+            a(href='#')
+                #button.errorButton
+                    p.studyButtonText X
+
+    // /WRAPPER
