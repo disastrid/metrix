@@ -4,6 +4,7 @@ var ident = '';
 var groupNum = '';
 var messageContent = 0;
 
+
 // DOM Ready =============================================================
 $(document).ready(function() {
     // ====== GET VALUES, SET UP ======
