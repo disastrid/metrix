@@ -3,11 +3,13 @@ var userListData = [];
 var ident = '';
 var groupNum = '';
 var messageContent = 0;
+var counter = 0;
 
 // set other global variables
 var setUp = function(){
     var width = $(document).width();
     var height = $(document).height();
+    console.log('width', width, 'height', height, 'innerWidth', window.innerWidth, 'innerHeight', window.innerHeight);
     var conWidth = $('#container').width();
     // using these, calculate how big the buttons should be (45% the width of the container)
     var buttonWidth = Math.floor(conWidth*0.45);
@@ -16,8 +18,7 @@ var setUp = function(){
     // Determine a top margin for the 
     var topMargin = Math.floor(height* 0.3);
     // 2. Set these values to the relevant elements: insert buttons, study buttons, text elements. 
-    $( ".insertButton1" ).css( "height", buttonWidth );
-    $( ".insertButton2" ).css( "height", buttonWidth );
+    $( ".insertButton1, .insertButton2" ).css( "height", buttonWidth );
     $(".errorButton").css("height", height);
     $(".isGoodButton").css("height", height);
     // Position the alert box near the centre of the screen.
@@ -45,14 +46,16 @@ $(document).ready(function() {
     // Add User button click
     $('.insertButton1').on('click', function() {
         addUserGroup1();        // add the user
-        // $('#overlay').fadeIn();
-        $('#insideOverlay').html('<p>Please take a moment to fill out your short survey. <br />Please quote your username, which is:</p> <p class="username">' + ident + '</p>');
+        $('#overlay').fadeIn();
+        $('#insideOverlay').html('<p>Please wait for the performance to begin. <br />In the meantime you can write your name on your survey book. Your username is:</p> <p class="username">' + ident + '</p>');
         $('#first').hide();     // hide the group buttons
         $('#second').show();    // show the study buttons
     });
 
     $('.insertButton2').on('click', function(){
         addUserGroup2(); //addUser the user
+        $('#overlay').fadeIn();
+        $('#insideOverlay').html('<p>Please wait for the performance to begin. <br />In the meantime you can write your name on your survey book. Your username is:</p> <p class="username">' + ident + '</p>');
         $('#first').hide();     // hide the group buttons
         $('#second').show();    // show the study buttons
     });
@@ -69,19 +72,28 @@ $(document).ready(function() {
     // When a message is received by the client from the server:
     // $('#overlay').hide();
     socket.on("start_broadcast", function() {
+        // console.log(message);
         console.log("I am a client and I heard a start command!");
+        $('#overlay').fadeOut();
         // code here to make UI active when performance begins
     });
     socket.on("pause_broadcast", function() {
         console.log("I am a client and I heard a pause command!");
+        counter+=1;
+        $('#overlay').fadeIn();
+        $('#insideOverlay').html('<p>Please fill out your questionnaire for Performance 1. Your username is</p> <p class="username">' + ident + '</p>');
         // code here to pause performance, grey UI and show username
     });
     socket.on("resume_broadcast", function() {
         console.log("I am a client and I heard a resume command!");
+        $('#overlay').fadeOut();
         // code here to make UI active again - get rid of pause screen
     });
+
     socket.on("end_broadcast", function() {
         console.log("I am a client and I heard an end performance command!");
+        $('#overlay').fadeIn();
+        $('#insideOverlay').html('<p>Please fill out your End of Performance questionnaire. Your username is</p> <p class="username">' + ident + '</p>');
         // code here to stop performance, grey UI, show username and thank for participating
     });
 
