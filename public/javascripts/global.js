@@ -4,41 +4,33 @@ var ident = '';
 var groupNum = '';
 var messageContent = 0;
 
-
-// DOM Ready =============================================================
-$(document).ready(function() {
-    // ====== GET VALUES, SET UP ======
-    // These lines size the buttons according to the detected size of the mobile screen.
-    // 1. Find the height of the screen, and the width of the container. 
-
+// set other global variables
+var setUp = function(){
     var width = $(document).width();
     var height = $(document).height();
-    console.log("height: " + height);
-    console.log("browser width: " + width);
     var conWidth = $('#container').width();
-    console.log("container width: " + conWidth);
-    
     // using these, calculate how big the buttons should be (45% the width of the container)
     var buttonWidth = Math.floor(conWidth*0.45);
-    console.log("button width: " + buttonWidth);
-
     // Determine a line height for the text. I used 80% of the button width; this works pretty well.
     var lineHeight = Math.floor(buttonWidth * 0.8);
-    console.log("line height of p: " + lineHeight);
-
     // Determine a top margin for the 
     var topMargin = Math.floor(height* 0.3);
-
     // 2. Set these values to the relevant elements: insert buttons, study buttons, text elements. 
     $( ".insertButton1" ).css( "height", buttonWidth );
     $( ".insertButton2" ).css( "height", buttonWidth );
-    $(".buttonText").css( "line-height", lineHeight*0.9+"px");
-    $(".buttonText").css( "font-size", lineHeight*0.15+"px");
     $(".errorButton").css("height", height);
     $(".isGoodButton").css("height", height);
     // Position the alert box near the centre of the screen.
-    $("#insideOverlay").css("margin", topMargin + "px auto 0 auto");
-    $("#insideOverlay").css("font-size", Math.floor(height/20) + "px");
+    $("#insideOverlay").css("margin", topMargin + "px auto 0 auto")
+                       .css("font-size", Math.floor(height/20) + "px");
+    $(".buttonText").css( "line-height", lineHeight*0.9+"px")
+                    .css( "font-size", lineHeight*0.15+"px");
+}
+
+// DOM Ready =============================================================
+$(document).ready(function() {
+
+    setUp();
     
     // Add User button click
     // 3. Add behaviours that happen when a button is clicked. When clicked:
@@ -91,6 +83,11 @@ $(document).ready(function() {
 
 // Functions =============================================================
 
+// Listen for orientation changes
+window.addEventListener("orientationchange", function() {
+    // Announce the new orientation number
+    setUp();
+}, false);
 
 // Add User
 function addUserGroup1() {
