@@ -5,28 +5,28 @@ $(document).ready(function() {
     $(".start").on("click", function() {
         // This sends the message:
         // var data = {message: 1};
-        socket.emit("start_broadcast");
-        console.log("I am the remote and I sent a start command!");
+        socket.emit("start_broadcast", {'message': 'There has been a pause received'});
+        console.log("I am the remote and I sent a START command!");
         // This records the action in the database:
         logStart();
     });
 
     $(".pause").on("click", function() {
-        socket.emit("pause_broadcast");
-        console.log("I am the remote and I sent a pause command!");
+        socket.emit("pause_broadcast", {'message': 'There has been a pause received'});
+        console.log("I am the remote and I sent a PAUSE command!");
         logPause();
     });
 
     $(".resume").on("click", function() {
-        socket.emit("resume_broadcast");
-        console.log("I am the remote and I sent a resume command!");
+        socket.emit("resume_broadcast", {'message': 'There has been a resume received'});
+        console.log("I am the remote and I sent a RESUME command!");
         logResume();
     });
 
-    $(".stop").on("click", function() {
-        socket.emit("stop_broadcast");
-        console.log("I am the remote and I sent a stop command!");
-        logStop();
+    $(".end").on("click", function() {
+        socket.emit("end_broadcast", {'message': 'There has been an end received'});
+        console.log("I am the remote and I sent an END command!");
+        logEnd();
     });
 
     $(window).on('beforeunload', function(){
@@ -63,31 +63,7 @@ $(document).ready(function() {
             });
     };
 
-    // STOP
-    function logStop() {
-        
-            // If it is, compile all user info into one object
-            var ident = 'remote';
-            var identifyMe = {
-                'ident': ident
-            }
-            // Use AJAX to post the object to our adduser service
-            $.ajax({
-                type: 'POST',
-                url: '/users/remote_stop',
-                data: identifyMe,
-                dataType: 'JSON'
-            }).done(function( response ) {
-                // Check for successful (blank) response
-                if (response.msg === '') {
-                    console.log("Successfully logged STOP time for '" + ident + "' user.");
-                }
-                else {
-                    // If something goes wrong, alert the error message that our service returned
-                    console.log('Error detected. Response was: ' + response);
-                }
-            });
-    };
+
     
     function logPause() {
         // event.preventDefault();
@@ -106,6 +82,32 @@ $(document).ready(function() {
                 // Check for successful (blank) response
                 if (response.msg === '') {
                     console.log("Successfully logged PAUSE time for '" + ident + "' user.");
+                }
+                else {
+                    // If something goes wrong, alert the error message that our service returned
+                    console.log('Error detected. Response was: ' + response);
+                }
+            });
+    };
+
+    // STOP
+    function logEnd() {
+        
+            // If it is, compile all user info into one object
+            var ident = 'remote';
+            var identifyMe = {
+                'ident': ident
+            }
+            // Use AJAX to post the object to our adduser service
+            $.ajax({
+                type: 'POST',
+                url: '/users/remote_end',
+                data: identifyMe,
+                dataType: 'JSON'
+            }).done(function( response ) {
+                // Check for successful (blank) response
+                if (response.msg === '') {
+                    console.log("Successfully logged END time for '" + ident + "' user.");
                 }
                 else {
                     // If something goes wrong, alert the error message that our service returned

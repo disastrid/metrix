@@ -78,7 +78,7 @@ router.post('/remote_start', function(req, res) {
     });
 });
 
-router.post('/remote_stop', function(req, res) {
+router.post('/remote_end', function(req, res) {
     console.log(req.body);
     var identifier = req.body.ident;
     var db = req.db;

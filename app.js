@@ -42,31 +42,37 @@ io.on("connection", function (socket) {
     socket.on("disconnect", function () {
         console.log("bye felicia");
     });
-});
+
 
 // Now, we set up messages for the Start, Pause, Resume and Stop actions from the remote control page.
+// On start_broadcast, do this:
+  socket.on("start_broadcast", function(socket){
+    // This is just here in case we need to send a message, it might work without:
+    console.log("Server received start message. Broadcasting ...");
+    // io.emit("start_broadcast", message);
+    io.emit("start_broadcast");
+  });
 
-io.on("start", function(socket){
-  // This is just here in case we need to send a message, it might work without:
-  var message = {message: 1};
-  // io.emit("start_broadcast", message);
-  io.emit("start_broadcast", message);
-});
+// When I click the pause button, do this:
+  socket.on("pause_broadcast", function(socket){
+    console.log("Server received PAUSE message. Broadcasting ...");
+    io.emit("pause_broadcast");
+  });
 
-io.on("pause", function(data){
-  var message = {message: 1};
-  io.emit("pause_broadcast", message);
-});
+// when I click the resume button, do this:
+  socket.on("resume_broadcast", function(socket) {
+    console.log("Server received RESUME message. Broadcasting ...");
+    io.emit("resume_broadcast");
+  });
 
-io.on("resume", function(data) {
-  var message = {message: 1};
-  io.emit("resume_broadcast", message);
-});
+// When I click the stop button, do this:
+  socket.on("end_broadcast", function(socket) {
+    console.log("Server received END message. Broadcasting ...");
+    io.emit("end_broadcast");
+  });
 
-io.on("stop", function(data) {
-  var message = {message: 1};
-  io.emit("stop_broadcast", message);
-});
+
+}); // end socket broadcasting
 
 // listening on port 3000:
 // app.listen(8080);
