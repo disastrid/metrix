@@ -19,16 +19,17 @@ var remote = require('./routes/remote');
 
 
 
-// BEGIN SOCKETS.IO
-var server = require("http").Server(app);
-var io = require("socket.io")(server);
-
 var app = express();
 
+// BEGIN SOCKETS.IO
+var server = app.listen(8080);
+var io = require('socket.io')(server);
+
 // Set up sockets business, with a connection module. Right now it just console logs when a user connects.
+// io.set('origins', '*:*');
 
 io.on("connection", function (socket) {
-    console.log("a user has connected!");
+    console.log("aw hell no what up dawg");
     // var tweet = {user: "nodesource", text: "Hello, world!"};
 
     // to make things interesting, have it send every second
@@ -37,7 +38,7 @@ io.on("connection", function (socket) {
     // }, 1000);
 
     socket.on("disconnect", function () {
-        clearInterval(interval);
+        console.log("bye felicia");
     });
 });
 
@@ -66,7 +67,7 @@ io.on("stop", function(data) {
 });
 
 // listening on port 3000:
-app.listen(8080);
+// app.listen(8080);
 
 
 // END SOCKETS.IO
