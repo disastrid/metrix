@@ -1,24 +1,34 @@
 $(document).ready(function() {
+
+    $(window).on('beforeunload', function(){
+        socket.close();
+    });
+
     //Event handling for button clicks
     $(".start").on("click", function() {
         // This sends the message:
-        socket.emit("start", data);
+        // var data = {message: 1};
+        socket.emit("start_broadcast");
+        console.log("I am the remote and I sent a start command!");
         // This records the action in the database:
         logStart();
     });
 
     $(".pause").on("click", function() {
-        socket.emit("pause", data);
+        socket.emit("pause_broadcast");
+        console.log("I am the remote and I sent a pause command!");
         logPause();
     });
 
     $(".resume").on("click", function() {
-        socket.emit("resume", data);
+        socket.emit("resume_broadcast");
+        console.log("I am the remote and I sent a resume command!");
         logResume();
     });
 
     $(".stop").on("click", function() {
-        socket.emit("stop", data);
+        socket.emit("stop_broadcast");
+        console.log("I am the remote and I sent a stop command!");
         logStop();
     });
 
@@ -30,8 +40,9 @@ $(document).ready(function() {
         // NOTE: function used to be identified as logStart(event). Howeve,r 
         // event.preventDefault();
             // If it is, compile all user info into one object
+            var ident = 'remote';
             var identifyMe = {
-                'ident': remote
+                'ident': ident
             }
             // Use AJAX to post the object to our adduser service
             $.ajax({
@@ -42,7 +53,7 @@ $(document).ready(function() {
             }).done(function( response ) {
                 // Check for successful (blank) response
                 if (response.msg === '') {
-                    console.log("successfully updated ERROR fields with ident " + ident);
+                    console.log("Successfully logged START time for '" + ident + "' user.");
                 }
                 else {
                     // If something goes wrong, alert the error message that our service returned
@@ -52,11 +63,12 @@ $(document).ready(function() {
     };
 
     // STOP
-    function logStop(event) {
-        event.preventDefault();
+    function logStop() {
+        
             // If it is, compile all user info into one object
+            var ident = 'remote';
             var identifyMe = {
-                'ident': remote
+                'ident': ident
             }
             // Use AJAX to post the object to our adduser service
             $.ajax({
@@ -67,7 +79,7 @@ $(document).ready(function() {
             }).done(function( response ) {
                 // Check for successful (blank) response
                 if (response.msg === '') {
-                    console.log("successfully updated ERROR fields with ident " + ident);
+                    console.log("Successfully logged STOP time for '" + ident + "' user.");
                 }
                 else {
                     // If something goes wrong, alert the error message that our service returned
@@ -75,11 +87,13 @@ $(document).ready(function() {
                 }
             });
     };
-    function logPause(event) {
-        event.preventDefault();
+    
+    function logPause() {
+        // event.preventDefault();
             // If it is, compile all user info into one object
+            var ident = 'remote';
             var identifyMe = {
-                'ident': remote
+                'ident': ident
             }
             // Use AJAX to post the object to our adduser service
             $.ajax({
@@ -90,7 +104,7 @@ $(document).ready(function() {
             }).done(function( response ) {
                 // Check for successful (blank) response
                 if (response.msg === '') {
-                    console.log("successfully updated ERROR fields with ident " + ident);
+                    console.log("Successfully logged PAUSE time for '" + ident + "' user.");
                 }
                 else {
                     // If something goes wrong, alert the error message that our service returned
@@ -99,11 +113,12 @@ $(document).ready(function() {
             });
     };
 
-    function logResume(event) {
-        event.preventDefault();
+    function logResume() {
+        // event.preventDefault();
             // If it is, compile all user info into one object
+            var ident = 'remote';
             var identifyMe = {
-                'ident': remote
+                'ident': ident
             }
             // Use AJAX to post the object to our adduser service
             $.ajax({
@@ -114,7 +129,7 @@ $(document).ready(function() {
             }).done(function( response ) {
                 // Check for successful (blank) response
                 if (response.msg === '') {
-                    console.log("successfully updated ERROR fields with ident " + ident);
+                    console.log("Successfully logged RESUME time for '" + ident + "' user.");
                 }
                 else {
                     // If something goes wrong, alert the error message that our service returned

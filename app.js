@@ -28,6 +28,8 @@ var io = require('socket.io')(server);
 // Set up sockets business, with a connection module. Right now it just console logs when a user connects.
 // io.set('origins', '*:*');
 
+
+
 io.on("connection", function (socket) {
     console.log("aw hell no what up dawg");
     // var tweet = {user: "nodesource", text: "Hello, world!"};
@@ -44,11 +46,11 @@ io.on("connection", function (socket) {
 
 // Now, we set up messages for the Start, Pause, Resume and Stop actions from the remote control page.
 
-io.on("start", function(data){
+io.on("start", function(socket){
   // This is just here in case we need to send a message, it might work without:
-  // var message = {message: 1};
+  var message = {message: 1};
   // io.emit("start_broadcast", message);
-  io.emit("start_broadcast");
+  io.emit("start_broadcast", message);
 });
 
 io.on("pause", function(data){

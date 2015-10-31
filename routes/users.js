@@ -80,7 +80,7 @@ router.post('/remote_start', function(req, res) {
 
 router.post('/remote_stop', function(req, res) {
     console.log(req.body);
-    var identifier = "remote";
+    var identifier = req.body.ident;
     var db = req.db;
     var collection = db.get('testcol');
     collection.update({'ident': identifier}, {$push: {'stop_button': Date(), 'stop_button_millis': Date.now()}}, function(err, result){
@@ -92,7 +92,7 @@ router.post('/remote_stop', function(req, res) {
 
 router.post('/remote_pause', function(req, res) {
     console.log(req.body);
-    var identifier = "remote";
+    var identifier = req.body.ident;
     var db = req.db;
     var collection = db.get('testcol');
     collection.update({'ident': identifier}, {$push: {'pause_button': Date(), 'pause_button_millis': Date.now()}}, function(err, result){
@@ -104,7 +104,7 @@ router.post('/remote_pause', function(req, res) {
 
 router.post('/remote_resume', function(req, res) {
     console.log(req.body);
-    var identifier = "remote";
+    var identifier = req.body.ident;
     var db = req.db;
     var collection = db.get('testcol');
     collection.update({'ident': identifier}, {$push: {'resume_button': Date(), 'resume_button_millis': Date.now()}}, function(err, result){

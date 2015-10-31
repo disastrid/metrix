@@ -11,6 +11,7 @@ $(document).ready(function() {
     // These lines size the buttons according to the detected size of the mobile screen.
     // 1. Find the height of the screen, and the width of the container. 
 
+
     var width = $(document).width();
     var height = $(document).height();
     console.log("height: " + height);
@@ -72,19 +73,29 @@ $(document).ready(function() {
     $('.isGoodButton').on('click', addIsGood);
 
 
+
+
     // When a message is received by the client from the server:
     // $('#overlay').hide();
     socket.on("start_broadcast", function() {
+        console.log("I am a client and I heard a start command!");
         // code here to make UI active when performance begins
     });
     socket.on("pause_broadcast", function() {
+        console.log("I am a client and I heard a pause command!");
         // code here to pause performance, grey UI and show username
     });
     socket.on("resume_broadcast", function() {
+        console.log("I am a client and I heard a resume command!");
         // code here to make UI active again - get rid of pause screen
     });
     socket.on("end_broadcast", function() {
+        console.log("I am a client and I heard an end performance command!");
         // code here to stop performance, grey UI, show username and thank for participating
+    });
+
+    socket.on("beforeunload", function(){
+        socket.close();
     });
 });
 
