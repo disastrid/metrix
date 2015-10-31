@@ -1,8 +1,5 @@
 $(document).ready(function() {
 
-    $(window).on('beforeunload', function(){
-        socket.close();
-    });
 
     //Event handling for button clicks
     $(".start").on("click", function() {
@@ -30,6 +27,10 @@ $(document).ready(function() {
         socket.emit("stop_broadcast");
         console.log("I am the remote and I sent a stop command!");
         logStop();
+    });
+
+    $(window).on('beforeunload', function(){
+        socket.close();
     });
 
 
