@@ -60,14 +60,15 @@ $(document).ready(function() {
         $('#second').show();    // show the study buttons
     });
 
-    // Update doc on button click
-    $('.errorButton').on('click', addError);
-
     // Update doc on isgood button click
-    $('.isGoodButton').on('click', addIsGood);
+    $('.isGoodButton').on('click', function(){
+        addIsGood;
+    });
 
-
-
+    // Update doc on button click
+    $('.errorButton').on('click', function(){
+        addError;
+    });
 
     // When a message is received by the client from the server:
     // $('#overlay').hide();
