@@ -36,8 +36,11 @@ p.studyButtonText {
 }
 
 #wrapper {
-    position:relative;
-    width: 100%;
+    position: absolute;    
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
 
 #container {
@@ -50,10 +53,6 @@ p.studyButtonText {
 }
 
 #first {
-    position: relative;
-}
-
-#second {
     position: relative;
 }
 
@@ -96,24 +95,44 @@ p.studyButtonText {
     width: 45%;
 }
 
-.errorButton {
+#second {
     position: absolute;
     bottom: 0;
-    background: #FF0000;
-    float: right;
-    width: 50%;
-    color: white;
-    font-weight: bold;
+    top: 0;
+    left: 0;
+    right: 0;
 }
-
+.errorButton,
 .isGoodButton {
-    position: absolute;
-    bottom: 0;
-    background: #00FF00;
-    width: 50%;
-    float: left;
     color: white;
     font-weight: bold;
+    position: absolute!important;
+    bottom: 0;
+    top: 0;
+    cursor: pointer;
+    text-align: center;
+}
+.errorButton span,
+.isGoodButton span {
+    display: inline-block;
+    font-size: 4em;
+}
+.errorButton:active,
+.isGoodButton:active {
+    background: #333;
+}
+.isGoodButton {
+    left: 0;
+    right: 50%;
+    background: #00FF00;
+}
+.isGoodButton span {
+    transform: rotate(90deg);
+}
+.errorButton {
+    right: 0;
+    left: 50%;
+    background: #FF0000;
 }
 
 .start {

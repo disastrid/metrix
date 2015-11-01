@@ -5,11 +5,13 @@ var groupNum = '';
 var messageContent = 0;
 var counter = 0;
 
+var width = $(window).width();
+var height = $(window).height();
+
 // set other global variables
 var setUp = function(){
-    var width = $(document).width();
-    var height = $(document).height();
-    console.log('width', width, 'height', height, 'innerWidth', window.innerWidth, 'innerHeight', window.innerHeight);
+    width = $(window).width();
+    height = $(window).height();
     var conWidth = $('#container').width();
     // using these, calculate how big the buttons should be (45% the width of the container)
     var buttonWidth = Math.floor(conWidth*0.45);
@@ -19,8 +21,8 @@ var setUp = function(){
     var topMargin = Math.floor(height* 0.3);
     // 2. Set these values to the relevant elements: insert buttons, study buttons, text elements. 
     $( ".insertButton1, .insertButton2" ).css( "height", buttonWidth );
-    $(".errorButton").css("height", height);
-    $(".isGoodButton").css("height", height);
+    $(".errorButton").css("line-height", height + 'px');
+    $(".isGoodButton").css("line-height", height + 'px');
     // Position the alert box near the centre of the screen.
     $("#insideOverlay").css("margin", topMargin + "px auto 0 auto")
                        .css("font-size", Math.floor(height/20) + "px");
@@ -60,14 +62,15 @@ $(document).ready(function() {
         $('#second').show();    // show the study buttons
     });
 
-    // Update doc on button click
-    $('.errorButton').on('click', addError);
-
     // Update doc on isgood button click
-    $('.isGoodButton').on('click', addIsGood);
+    $('.isGoodButton').on('click', function(){
+        addIsGood;
+    });
 
-
-
+    // Update doc on button click
+    $('.errorButton').on('click', function(){
+        addError;
+    });
 
     // When a message is received by the client from the server:
     // $('#overlay').hide();
