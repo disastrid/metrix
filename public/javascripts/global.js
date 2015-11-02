@@ -22,6 +22,7 @@ var setUp = function(){
     // Determine a top margin for the 
     var topMargin = Math.floor(height * 0.2);
     // 2. Set these values to the relevant elements: insert buttons, study buttons, text elements. 
+    $('#wrapper').css('margin', topMargin + "px auto 0 auto");
     $( ".insertButton1, .insertButton2" ).css( "height", buttonWidth );
     $(".errorButton").css("line-height", height + 'px');
     $(".isGoodButton").css("line-height", height + 'px');
