@@ -20,7 +20,7 @@ var setUp = function(){
     // Determine a line height for the text. I used 80% of the button width; this works pretty well.
     var lineHeight = Math.floor(buttonWidth * 0.8);
     // Determine a top margin for the 
-    var topMargin = Math.floor(height * 0.2);
+    var topMargin = Math.floor(height * 0.15);
     // 2. Set these values to the relevant elements: insert buttons, study buttons, text elements. 
     $('#insertWrapper').css('margin', topMargin + "px auto 0 auto");
     $( ".insertButton1, .insertButton2" ).css( "height", buttonWidth );
