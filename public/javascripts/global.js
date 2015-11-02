@@ -24,7 +24,7 @@ var setUp = function(){
     $(".errorButton").css("line-height", height + 'px');
     $(".isGoodButton").css("line-height", height + 'px');
     // Position the alert box near the centre of the screen.
-    $("#wrapper").css("margin", topMargin + "px auto 0 auto")
+    $("#wrapper").css("margin", topMargin + "px auto 0 auto");
     $("#insideOverlay").css("margin", topMargin + "px auto 0 auto");
                        .css("font-size", Math.floor(height/20) + "px");
     $(".buttonText").css( "line-height", lineHeight*0.9+"px")
