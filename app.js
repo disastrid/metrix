@@ -1,4 +1,4 @@
-var express = require('express');
+// var express = require('express')();
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -19,15 +19,16 @@ var remote = require('./routes/remote');
 
 
 
-var app = express();
+var app = require('express')();
 
 // BEGIN SOCKETS.IO
-var server = app.listen(80);
+var server = require('http').createServer(app);
+//var server = app.listen(80);
 var io = require('socket.io')(server);
 
 // Set up sockets business, with a connection module. Right now it just console logs when a user connects.
 // io.set('origins', '*:*');
-
+server.listen(80);
 
 
 io.on("connection", function (socket) {
