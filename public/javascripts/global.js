@@ -8,8 +8,6 @@ var messageContent = 0;
 var width = $(window).width();
 var height = $(window).height();
 
-
-
 // set other global variables
 var setUp = function(){
     width = $(window).width();
