@@ -28,7 +28,7 @@ var server = http.createServer(app);
 var io = require('socket.io').listen(server);
 
 
- server.listen(443);
+ server.listen(8080);
  console.log("server started");
 
 
