@@ -8,7 +8,7 @@ var messageContent = 0;
 var width = $(window).width();
 var height = $(window).height();
 
-var socket = io.connect('http://astrid.grimmwa.re');
+
 
 // set other global variables
 var setUp = function(){
@@ -20,13 +20,14 @@ var setUp = function(){
     // Determine a line height for the text. I used 80% of the button width; this works pretty well.
     var lineHeight = Math.floor(buttonWidth * 0.8);
     // Determine a top margin for the 
-    var topMargin = Math.floor(height * 0.2);
+    var topMargin = Math.floor(height * 0.3);
     // 2. Set these values to the relevant elements: insert buttons, study buttons, text elements. 
     $( ".insertButton1, .insertButton2" ).css( "height", buttonWidth );
     $(".errorButton").css("line-height", height + 'px');
     $(".isGoodButton").css("line-height", height + 'px');
     // Position the alert box near the centre of the screen.
-    $("#insideOverlay").css("margin", topMargin + "px auto 0 auto")
+    $("#wrapper").css("margin", topMargin + "px auto 0 auto")
+    $("#insideOverlay").css("margin", topMargin + "px auto 0 auto");
                        .css("font-size", Math.floor(height/20) + "px");
     $(".buttonText").css( "line-height", lineHeight*0.9+"px")
                     .css( "font-size", lineHeight*0.15+"px");
