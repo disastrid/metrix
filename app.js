@@ -16,16 +16,15 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var study = require('./routes/study');
 var remote = require('./routes/remote');
-                  
-// BEGIN SOCKETS.IO
 
-var app = require('express').createServer();
-// var server = require('http').createServer(app);
+var http = require('http');
+var app = require('express').createServer(http);                                    
 var io = require('socket.io').listen(app);
+var app = express();
 
-
-// listen on 8080:
-app.listen(80);
+// BEGIN SOCKETS.IO
+var server = app.listen(8080);
+var io = require('socket.io')(server);
 
 // Set up sockets business, with a connection module. Right now it just console logs when a user connects.
 // io.set('origins', '*:*');
@@ -34,7 +33,6 @@ app.listen(80);
 
 io.on("connection", function (socket) {
     console.log("aw hell no what up dawg");
-    console.log("socket is listening on port 80");
     // var tweet = {user: "nodesource", text: "Hello, world!"};
 
     // to make things interesting, have it send every second
