@@ -45,31 +45,61 @@ io.on("connection", function (socket) {
 
 
 // Now, we set up messages for the Start, Pause, Resume and Stop actions from the remote control page.
-// On start_broadcast, do this:
+// START THE PERFORMANCE:
   socket.on("start_broadcast", function(socket){
     // This is just here in case we need to send a message, it might work without:
-    console.log("Server received start message. Broadcasting ...");
+    console.log("Server received START message from the remote. Broadcasting ...");
     // io.emit("start_broadcast", message);
     io.emit("start_broadcast");
   });
 
-// When I click the pause button, do this:
-  socket.on("pause_broadcast", function(socket){
-    console.log("Server received PAUSE message. Broadcasting ...");
-    io.emit("pause_broadcast");
+  // END THE PERFORMANCE:
+  socket.on("end_broadcast", function(socket) {
+    console.log("Server received END message from the remote. Broadcasting ...");
+    io.emit("end_broadcast");
   });
 
-// when I click the resume button, do this:
+  // START THE TEST:
+  socket.on("start_test_broadcast", function(socket){
+    // This is just here in case we need to send a message, it might work without:
+    console.log("Server received START_TEST message from the remote. Broadcasting ...");
+    // io.emit("start_broadcast", message);
+    io.emit("start_test_broadcast");
+  });
+
+// END THE TEST:
+  socket.on("end_test_broadcast", function(socket){
+    // This is just here in case we need to send a message, it might work without:
+    console.log("Server received END_TEST message from the remote. Broadcasting ...");
+    // io.emit("start_broadcast", message);
+    io.emit("end_test_broadcast");
+  });
+
+// PAUSE AFTER PERFORMANCE 1:
+  socket.on("pause_1_broadcast", function(socket){
+    console.log("Server received PAUSE1 message from the remote. Broadcasting ...");
+    io.emit("pause_1_broadcast");
+  });
+
+// PAUSE AFTER PERFORMANCE 2:
+  socket.on("pause_2_broadcast", function(socket){
+    console.log("Server received PAUSE2 message from the remote. Broadcasting ...");
+    io.emit("pause_2_broadcast");
+  });
+
+// PAUSE AFTER PERFORMANCE 3:
+  socket.on("pause_3_broadcast", function(socket){
+    console.log("Server received PAUSE3 message from the remote. Broadcasting ...");
+    io.emit("pause_3_broadcast");
+  });
+
+// MAKE UI ACTIVE AGAIN AFTER PAUSE:
   socket.on("resume_broadcast", function(socket) {
-    console.log("Server received RESUME message. Broadcasting ...");
+    console.log("Server received RESUME message from the remote. Broadcasting ...");
     io.emit("resume_broadcast");
   });
 
-// When I click the stop button, do this:
-  socket.on("end_broadcast", function(socket) {
-    console.log("Server received END message. Broadcasting ...");
-    io.emit("end_broadcast");
-  });
+
 
 
 }); // end socket broadcasting

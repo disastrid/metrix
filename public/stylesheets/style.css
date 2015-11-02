@@ -142,32 +142,54 @@ p.studyButtonText {
     background: #333;
 }
 
+.start_test {
+    background: #009933;
+    line-height: 100px;
+    width: 40%;
+}
+
+.end_test {
+    background: #CC3300;
+    line-height: 100px;
+    width: 40%;
+}
+
 .start {
     background: #009933;
-    line-height: 50px;
+    line-height: 100px;
     width: 40%;
-    float: left;
 }
 
 .end {
     background: #CC3300;
-    line-height: 50px;
+    line-height: 100px;
     width: 40%;
-    float: left;
 }
 
-.pause {
-    background: #D200D2;
-    line-height: 50px;
+.pause1 {
+    background: #333;
+    line-height: 100px;
     width: 40%;
-    float: right;
+}
+.pause2 {
+    background: #666;
+    line-height: 100px;
+    width: 40%;
+}
+.pause3 {
+    background: #999;
+    line-height: 100px;
+    width: 40%;
 }
 
 .resume {
     background: #00BEBE;
-    line-height: 50px;
+    line-height: 100px;
     width: 40%;
-    float: right;
+}
+
+#remoteButton {
+    display: block;
 }
 
 p.remoteButtonText {
@@ -175,6 +197,7 @@ p.remoteButtonText {
     color: #fff;
     size: 18px;
     text-align: center;
+    text-decoration: none;
 }
 
 h1 {

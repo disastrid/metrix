@@ -8,6 +8,8 @@ var messageContent = 0;
 var width = $(window).width();
 var height = $(window).height();
 
+var socket = io.connect('http://localhost:8080');
+
 // set other global variables
 var setUp = function(){
     width = $(window).width();
@@ -64,27 +66,59 @@ $(document).ready(function() {
 
     // Update doc on isgood button click
     $('.isGoodButton').on('click', function(){
-        addIsGood;
+        addIsGood();
     });
 
     // Update doc on button click
     $('.errorButton').on('click', function(){
-        addError;
+        addError();
     });
 
     // When a message is received by the client from the server:
     // $('#overlay').hide();
     socket.on("start_broadcast", function() {
         // console.log(message);
-        console.log("I am a client and I heard a start command!");
+        console.log("I am a client and I heard a START command!");
         $('#overlay').fadeOut();
         // code here to make UI active when performance begins
     });
-    socket.on("pause_broadcast", function() {
-        console.log("I am a client and I heard a pause command!");
+    socket.on("start_test_broadcast", function() {
+        // console.log(message);
+        console.log("I am a client and I heard a START_TEST command!");
+        $('#overlay').fadeOut();
+        // code here to make UI active when performance begins
+    });
+    socket.on("end_broadcast", function() {
+        console.log("I am a client and I heard an END command!");
+        $('#overlay').fadeIn();
+        $('#insideOverlay').html('<p>Please fill out your questionnaires for Performance 4: Tim Exile and your End of Performance Survey. Your username is</p> <p class="username">' + ident + '</p><p>Thank you so much for your participation!</p>');
+        // code here to stop performance, grey UI, show username and thank for participating
+    });
+    socket.on("end_test_broadcast", function() {
+        console.log("I am a client and I heard an END_TEST command!");
+        $('#overlay').fadeIn();
+        $('#insideOverlay').html('<p>Please wait for the performance to begin. <br />In the meantime you can write your name on your survey book. Your username is:</p> <p class="username">' + ident + '</p>');
+        // code here to stop performance, grey UI, show username and thank for participating
+    });
+    socket.on("pause_1_broadcast", function() {
+        console.log("I am a client and I heard a PAUSE1 command!");
         counter+=1;
         $('#overlay').fadeIn();
-        $('#insideOverlay').html('<p>Please fill out your questionnaire for Performance ' + counter + '. Your username is</p> <p class="username">' + ident + '</p>');
+        $('#insideOverlay').html('<p>Please fill out your questionnaire for Performance 1: Dianne Verdonk. Your username is</p> <p class="username">' + ident + '</p>');
+        // code here to pause performance, grey UI and show username
+    });
+    socket.on("pause_2_broadcast", function() {
+        console.log("I am a client and I heard a PAUSE1 command!");
+        counter+=1;
+        $('#overlay').fadeIn();
+        $('#insideOverlay').html('<p>Please fill out your questionnaire for Performance 2: Tim Exile. Your username is</p> <p class="username">' + ident + '</p>');
+        // code here to pause performance, grey UI and show username
+    });
+    socket.on("pause_3_broadcast", function() {
+        console.log("I am a client and I heard a PAUSE1 command!");
+        counter+=1;
+        $('#overlay').fadeIn();
+        $('#insideOverlay').html('<p>Please fill out your questionnaire for Performance 3: Dianne Verdonk. Your username is</p> <p class="username">' + ident + '</p>');
         // code here to pause performance, grey UI and show username
     });
     socket.on("resume_broadcast", function() {
@@ -93,12 +127,6 @@ $(document).ready(function() {
         // code here to make UI active again - get rid of pause screen
     });
 
-    socket.on("end_broadcast", function() {
-        console.log("I am a client and I heard an end performance command!");
-        $('#overlay').fadeIn();
-        $('#insideOverlay').html('<p>Please fill out your questionnaires for Performance 4, and your End of Performance questionnaire. Your username is</p> <p class="username">' + ident + '</p><p>Thank you so much for your participation!</p>');
-        // code here to stop performance, grey UI, show username and thank for participating
-    });
 
     socket.on("beforeunload", function(){
         socket.close();
@@ -193,8 +221,8 @@ function addUserGroup2() {
 };
 
 
-function addError(event) {
-    event.preventDefault();
+function addError() {
+    // event.preventDefault();
         // If it is, compile all user info into one object
         var identifyMe = {
             'ident': ident
@@ -217,8 +245,8 @@ function addError(event) {
         });
 };
 
-function addIsGood(event) {
-    event.preventDefault();
+function addIsGood() {
+    // event.preventDefault();
         // Send the identifier variable to the database:
         var identifyMe = {
             'ident': ident

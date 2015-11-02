@@ -2,21 +2,39 @@ extends layout
 
 block content
     #wrapper
-        h1="remote button panel"
+        h1="Remote Button Panel"
         #container
+            
+            a(href='#')
+                #remoteButton.start_test
+                    p.remoteButtonText START TEST PHASE
+
+            a(href='#')
+                #remoteButton.end_test
+                    p.remoteButtonText END TEST PHASE
+
             a(href='#')
                 #remoteButton.start
-                    p.remoteButtonText START
+                    p.remoteButtonText START PERFORMANCE
 
             a(href='#')
-                #remoteButton.pause
-                    p.remoteButtonText PAUSE
+                #remoteButton.pause1
+                    p.remoteButtonText PAUSE 1 - FILL OUT SURVEY 1
+        
+            a(href='#')
+                #remoteButton.pause2
+                    p.remoteButtonText PAUSE 2 - FILL OUT SURVEY 2
 
-
+            a(href='#')
+                #remoteButton.pause3
+                    p.remoteButtonText PAUSE 3 - FILL OUT SURVEY 3
+        
             a(href='#')
                 #remoteButton.resume
                     p.remoteButtonText RESUME
+            
             a(href='#')
                 #remoteButton.end
-                    p.remoteButtonText END
+                    p.remoteButtonText END PERFORMANCE
+    
     // /WRAPPER
