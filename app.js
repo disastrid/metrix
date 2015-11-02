@@ -17,12 +17,13 @@ var users = require('./routes/users');
 var study = require('./routes/study');
 var remote = require('./routes/remote');
                   
-var app = express().createServer();
+// BEGIN SOCKETS.IO
+var app = require('express').createServer();
 var io = require('socket.io').listen(app);
 
-// BEGIN SOCKETS.IO
-var server = app.listen(8080);
-var io = require('socket.io')(server);
+
+// listen on 8080:
+app.listen(8080);
 
 // Set up sockets business, with a connection module. Right now it just console logs when a user connects.
 // io.set('origins', '*:*');
