@@ -103,21 +103,18 @@ $(document).ready(function() {
     });
     socket.on("pause_1_broadcast", function() {
         console.log("I am a client and I heard a PAUSE1 command!");
-        counter+=1;
         $('#overlay').fadeIn();
         $('#insideOverlay').html('<p>Please fill out your questionnaire for Performance 1: Dianne Verdonk. Your username is</p> <p class="username">' + ident + '</p>');
         // code here to pause performance, grey UI and show username
     });
     socket.on("pause_2_broadcast", function() {
         console.log("I am a client and I heard a PAUSE1 command!");
-        counter+=1;
         $('#overlay').fadeIn();
         $('#insideOverlay').html('<p>Please fill out your questionnaire for Performance 2: Tim Exile. Your username is</p> <p class="username">' + ident + '</p>');
         // code here to pause performance, grey UI and show username
     });
     socket.on("pause_3_broadcast", function() {
         console.log("I am a client and I heard a PAUSE1 command!");
-        counter+=1;
         $('#overlay').fadeIn();
         $('#insideOverlay').html('<p>Please fill out your questionnaire for Performance 3: Dianne Verdonk. Your username is</p> <p class="username">' + ident + '</p>');
         // code here to pause performance, grey UI and show username
