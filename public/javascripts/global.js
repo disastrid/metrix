@@ -32,6 +32,14 @@ var setUp = function(){
                     .css( "font-size", lineHeight*0.15+"px");
 }
 
+window.addEventListener("load",function() {
+    // Set a timeout...
+    setTimeout(function(){
+        // Hide the address bar!
+        window.scrollTo(0, 1);
+    }, 0);
+});
+
 // DOM Ready =============================================================
 $(document).ready(function() {
 
