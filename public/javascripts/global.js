@@ -8,7 +8,7 @@ var messageContent = 0;
 var width = $(window).width();
 var height = $(window).height();
 
-// var socket = io.connect('http://localhost:8080');
+var socket = io.connect('http://astrid.grimmwa.re');
 
 // set other global variables
 var setUp = function(){
