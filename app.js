@@ -22,7 +22,7 @@ var remote = require('./routes/remote');
 var app = express();
 
 // BEGIN SOCKETS.IO
-var server = app.listen(8080);
+var server = app.listen(80);
 var io = require('socket.io')(server);
 
 // Set up sockets business, with a connection module. Right now it just console logs when a user connects.
