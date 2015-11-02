@@ -3,7 +3,7 @@ var userListData = [];
 var ident = '';
 var groupNum = '';
 var messageContent = 0;
-var counter = 0;
+
 
 var width = $(window).width();
 var height = $(window).height();
@@ -34,7 +34,7 @@ var setUp = function(){
 $(document).ready(function() {
 
     setUp();
-    
+    var counter = 0;
     // Add User button click
     // 3. Add behaviours that happen when a button is clicked. When clicked:
     // a. Slide the group selector up
@@ -84,7 +84,7 @@ $(document).ready(function() {
         console.log("I am a client and I heard a pause command!");
         counter+=1;
         $('#overlay').fadeIn();
-        $('#insideOverlay').html('<p>Please fill out your questionnaire for Performance 1. Your username is</p> <p class="username">' + ident + '</p>');
+        $('#insideOverlay').html('<p>Please fill out your questionnaire for Performance ' + counter + '. Your username is</p> <p class="username">' + ident + '</p>');
         // code here to pause performance, grey UI and show username
     });
     socket.on("resume_broadcast", function() {
@@ -96,7 +96,7 @@ $(document).ready(function() {
     socket.on("end_broadcast", function() {
         console.log("I am a client and I heard an end performance command!");
         $('#overlay').fadeIn();
-        $('#insideOverlay').html('<p>Please fill out your End of Performance questionnaire. Your username is</p> <p class="username">' + ident + '</p>');
+        $('#insideOverlay').html('<p>Please fill out your questionnaires for Performance 4, and your End of Performance questionnaire. Your username is</p> <p class="username">' + ident + '</p><p>Thank you so much for your participation!</p>');
         // code here to stop performance, grey UI, show username and thank for participating
     });
 

@@ -59,7 +59,7 @@ p.studyButtonText {
 /*This is the overlay that will happen when a message is received.*/
 #overlay {
     background-color: #333;
-    opacity: 0.8;
+    opacity: 0.9;
     position: absolute;
     left: 0;
     top: 0;
@@ -124,7 +124,7 @@ p.studyButtonText {
 .isGoodButton {
     left: 0;
     right: 50%;
-    background: #00FF00;
+    background: #60AB15;
 }
 .isGoodButton span {
     transform: rotate(90deg);
@@ -132,7 +132,14 @@ p.studyButtonText {
 .errorButton {
     right: 0;
     left: 50%;
-    background: #FF0000;
+    background: #AB1515;
+}
+
+.start:active,
+.end:active,
+.pause:active,
+.resume:active {
+    background: #333;
 }
 
 .start {
