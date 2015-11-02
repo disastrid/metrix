@@ -18,13 +18,22 @@ var study = require('./routes/study');
 var remote = require('./routes/remote');
 
 var http = require('http');
-var app = require('express').createServer(http);                                    
+var app = express();                                    
 var io = require('socket.io').listen(app);
-var app = express();
 
 // BEGIN SOCKETS.IO
-var server = app.listen(8080);
-var io = require('socket.io')(server);
+// var server = app.listen(8080);
+
+// view engine setup
+app.set('port', process.env.PORT || 8080);
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
+
+http.createServer(app).listen(app.get('port'), function(){
+  console.log('Express server listening on port ' + app.get('port'));
+});
+
+var io = require('socket.io').listen(app);
 
 // Set up sockets business, with a connection module. Right now it just console logs when a user connects.
 // io.set('origins', '*:*');
@@ -111,9 +120,7 @@ io.on("connection", function (socket) {
 
 // END SOCKETS.IO
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
