@@ -36,7 +36,10 @@ var setUp = function(){
 $(document).ready(function() {
 
     setUp();
-    var counter = 0;
+    setTimeout(function(){
+        // Hide the address bar!
+        window.scrollTo(0, 1);
+    }, 0);
     // Add User button click
     // 3. Add behaviours that happen when a button is clicked. When clicked:
     // a. Slide the group selector up
