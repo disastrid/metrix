@@ -37,6 +37,8 @@ var setUp = function(){
 // DOM Ready =============================================================
 $(document).ready(function() {
 
+    console.log('global.js reporting in');
+
     setUp();
 
     // Add User button click
@@ -78,56 +80,56 @@ $(document).ready(function() {
 
     // When a message is received by the client from the server:
     // $('#overlay').hide();
-    socket.on("start_broadcast", function() {
+    socket.on('start_broadcast', function() {
         // console.log(message);
         console.log("I am a client and I heard a START command!");
         $('#overlay').fadeOut();
         // code here to make UI active when performance begins
     });
-    socket.on("start_test_broadcast", function() {
+    socket.on('start_test_broadcast', function() {
         // console.log(message);
-        console.log("I am a client and I heard a START_TEST command!");
+        console.log('I am a client and I heard a START_TEST command!');
         $('#overlay').fadeOut();
         // code here to make UI active when performance begins
     });
-    socket.on("end_broadcast", function() {
+    socket.on('end_broadcast', function() {
         console.log("I am a client and I heard an END command!");
         $('#overlay').fadeIn();
         $('#insideOverlay').html('<p>Please fill out your questionnaires for Performance 4: Tim Exile and your End of Performance Survey. Your username is</p> <p class="username">' + ident + '</p><p>Thank you so much for your participation!</p>');
         // code here to stop performance, grey UI, show username and thank for participating
     });
-    socket.on("end_test_broadcast", function() {
-        console.log("I am a client and I heard an END_TEST command!");
+    socket.on('end_test_broadcast', function() {
+        console.log('I am a client and I heard an END_TEST command!');
         $('#overlay').fadeIn();
         $('#insideOverlay').html('<p>Please wait for the performance to begin. <br />In the meantime you can write your name on your survey book. Your username is:</p> <p class="username">' + ident + '</p>');
         // code here to stop performance, grey UI, show username and thank for participating
     });
-    socket.on("pause_1_broadcast", function() {
-        console.log("I am a client and I heard a PAUSE1 command!");
+    socket.on('pause_1_broadcast', function() {
+        console.log('I am a client and I heard a PAUSE1 command!');
         $('#overlay').fadeIn();
         $('#insideOverlay').html('<p>Please fill out your questionnaire for Performance 1: Dianne Verdonk. Your username is</p> <p class="username">' + ident + '</p>');
         // code here to pause performance, grey UI and show username
     });
-    socket.on("pause_2_broadcast", function() {
-        console.log("I am a client and I heard a PAUSE1 command!");
+    socket.on('pause_2_broadcast', function() {
+        console.log('I am a client and I heard a PAUSE1 command!');
         $('#overlay').fadeIn();
         $('#insideOverlay').html('<p>Please fill out your questionnaire for Performance 2: Tim Exile. Your username is</p> <p class="username">' + ident + '</p>');
         // code here to pause performance, grey UI and show username
     });
-    socket.on("pause_3_broadcast", function() {
-        console.log("I am a client and I heard a PAUSE1 command!");
+    socket.on('pause_3_broadcast', function() {
+        console.log('I am a client and I heard a PAUSE1 command!');
         $('#overlay').fadeIn();
         $('#insideOverlay').html('<p>Please fill out your questionnaire for Performance 3: Dianne Verdonk. Your username is</p> <p class="username">' + ident + '</p>');
         // code here to pause performance, grey UI and show username
     });
-    socket.on("resume_broadcast", function() {
-        console.log("I am a client and I heard a resume command!");
+    socket.on('resume_broadcast', function() {
+        console.log('I am a client and I heard a resume command!');
         $('#overlay').fadeOut();
         // code here to make UI active again - get rid of pause screen
     });
 
 
-    socket.on("beforeunload", function(){
+    socket.on('beforeunload', function(){
         socket.close();
     });
 });
@@ -136,7 +138,7 @@ $(document).ready(function() {
 // Functions =============================================================
 
 // Listen for orientation changes
-window.addEventListener("orientationchange", function() {
+window.addEventListener('orientationchange', function() {
     // Announce the new orientation number
     setUp();
 }, false);

@@ -204,3 +204,53 @@ p.remoteButtonText {
 h1 {
     margin-left: 50px;
 }
+
+body {
+    background: #fff;
+}
+
+
+#player {
+    /*This is where the controls for the player div go*/
+    display: block;
+    margin: 20px auto;
+    z-index: 1;
+}
+
+#posthoc_start {
+    margin: 0 auto;
+    width: 200px;
+    height: 50px;
+    background: #0000ff;
+}
+
+p.text_posthoc {
+    color: #fff;
+    font-family: Helvetica, sans-serif;
+    text-align: center;
+    size: 20px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+#posthoc_feedback {
+    margin: 25px auto;
+    width: 640px;
+    height: 200px;
+}
+#posthoc_isGood {
+    display: inline;
+    float: left;
+    width: 300px;
+    height: 200px;
+    background: #00ff00;
+}
+
+#posthoc_error {
+    display: inline;
+    float: right;
+    width: 300px;
+    height: 200px;
+    background: #ff0000;
+
+}

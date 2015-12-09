@@ -1,0 +1,28 @@
+extends layout
+
+// Put your variables here:
+// uniqueId is the YouTube id of the video you want to play
+// playStart is the second you want playback to start. 
+
+script(type="text/javascript").
+    var playStart = 10;
+    var uniqueId = 's7vOEjByFgk';
+
+block content
+    #wrapper
+        #container
+            
+            #player
+
+            #posthoc_start
+                p.text_posthoc START
+
+            #feedback
+                #posthoc_isGood
+                    p.text_posthoc I LIKE THIS
+
+                #posthoc_error
+                    p.text_posthoc THERE WAS AN ERROR
+
+    
+    // /WRAPPER

@@ -18,6 +18,7 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var study = require('./routes/study');
 var remote = require('./routes/remote');
+var analyse = require('./routes/analyse');
 
 
 
@@ -139,6 +140,7 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/study', study);
 app.use('/remote', remote);
+app.use('/analyse', analyse);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

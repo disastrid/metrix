@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-
+    console.log("remote.js checking in");
     //Event handling for button clicks
     // START AND END TEST:
 
