@@ -1,0 +1,25 @@
+order of events
+
+USER: Clicks Group button
+    GLOBAL.JS: - username created
+    GLOBAL.JS: - send group num + username to the server
+    ROUTE: - DB document inserted with group number + username
+    GLOBAL.JS: - Show study interface
+               - Grey out UI until "start" message received
+
+
+REMOTE: Clicks START PERFORMANCE button
+    - DB doc created with start time stamp
+    - All connected clients have UI ungreyed and can interact with it
+
+REMOTE: clicks PAUSE performnace button
+    - DB doc time stamp added to "pause" fields
+    - All connected clients have UI greyed and un displayed 
+
+REMOTE: clicks RESUME button
+    - DB doc time stamp added to "resume" field
+    - All connected clients have UI ungreyed and can interact
+
+REMOTE: click END PERFORMANCE button
+    - DB doc time stamp added to "end" field
+    - All connected clients have UI greyed with un displayed and asked to fill out final survey

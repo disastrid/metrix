@@ -1,0 +1,265 @@
+* {
+    /* stop double click selecting of text */
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+         -o-user-select: none;
+            user-select: none;
+}
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    background: #eee;
+}
+
+h2 {
+    margin:0 0 .5em 0;
+}
+
+a {
+  color: #00B7FF;
+}
+
+p.buttonText {
+    font-weight: bold;
+    color: #fff;
+    text-align: center;
+}
+
+p.studyButtonText {
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.5);
+    text-align: center;
+}
+
+#wrapper {
+    position: absolute;    
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    /*overflow-x: hidden;*/
+}
+
+#container {
+    margin: 0 auto;
+    width: 80%;
+}
+
+#button {
+    position: relative;
+}
+
+#first {
+    position: relative;
+}
+
+/*This is the overlay that will happen when a message is received.*/
+#overlay {
+    background-color: #333;
+    opacity: 0.9;
+    position: absolute;
+    left: 0;
+    top: 0;
+    overflow: hidden;
+    z-index: 100;
+    height: 100%;
+    width: 100%;
+}
+    #insideOverlay {
+        border: 1px solid black;
+        background-color: #fff;
+        opacity: 1;
+        font-weight: normal;
+        width: 50%;
+        padding: 10px;
+        text-align: center;
+    }
+    p.username {
+        font-weight: bold;
+    }
+
+.insertButton1 {
+    background: #FF0000;
+    float: left;
+    border-radius: 50%;
+    width: 45%;
+}
+
+.insertButton2 {
+    background: #0000FF;
+    float: right;
+    border-radius: 50%;
+    width: 45%;
+}
+
+#second {
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+.errorButton,
+.isGoodButton {
+    color: white;
+    font-weight: bold;
+    position: absolute!important;
+    bottom: 0;
+    top: 0;
+    cursor: pointer;
+    text-align: center;
+}
+.errorButton span,
+.isGoodButton span {
+    display: inline-block;
+    font-size: 4em;
+}
+.errorButton:active,
+.isGoodButton:active {
+    background: #333;
+}
+.isGoodButton {
+    left: 0;
+    right: 50%;
+    background: #60AB15;
+}
+.isGoodButton span {
+    transform: rotate(90deg);
+}
+.errorButton {
+    right: 0;
+    left: 50%;
+    background: #AB1515;
+}
+
+.start:active,
+.end:active,
+.pause:active,
+.resume:active {
+    background: #333;
+}
+
+.start_test {
+    background: #009933;
+    line-height: 100px;
+    width: 40%;
+}
+
+.end_test {
+    background: #CC3300;
+    line-height: 100px;
+    width: 40%;
+}
+
+.start {
+    background: #009933;
+    line-height: 100px;
+    width: 40%;
+}
+
+.end {
+    background: #CC3300;
+    line-height: 100px;
+    width: 40%;
+}
+
+.pause1 {
+    background: #333;
+    line-height: 100px;
+    width: 40%;
+}
+.pause2 {
+    background: #666;
+    line-height: 100px;
+    width: 40%;
+}
+.pause3 {
+    background: #999;
+    line-height: 100px;
+    width: 40%;
+}
+
+.resume {
+    background: #00BEBE;
+    line-height: 100px;
+    width: 40%;
+}
+
+#remoteButton {
+    display: block;
+}
+
+p.remoteButtonText {
+    font-weight: bold;
+    color: #fff;
+    size: 18px;
+    text-align: center;
+    text-decoration: none;
+}
+
+h1 {
+    margin-left: 50px;
+}
+
+body {
+    background: #fff;
+}
+
+
+#player {
+    /*This is where the controls for the player div go*/
+    display: block;
+    margin: 20px auto;
+    z-index: 1;
+}
+
+#posthoc_start {
+    margin: 0 auto;
+    width: 200px;
+    height: 50px;
+    background: #0000ff;
+}
+
+p.text_posthoc {
+    color: #fff;
+    font-family: Helvetica, sans-serif;
+    text-align: center;
+    size: 20px;
+    font-weight: bold;
+    padding-top: 70px;
+}
+
+p.text_posthoc_start{
+    color: #fff;
+    font-family: Helvetica, sans-serif;
+    text-align: center;
+    size: 20px;
+    font-weight: bold;
+    padding-top: 20px;
+}
+
+#posthoc_feedback {
+    margin: 25px auto;
+    width: 640px;
+    height: 200px;
+}
+#posthoc_isGood {
+    display: inline;
+    float: left;
+    width: 300px;
+    height: 200px;
+    background: #00ff00;
+}
+
+#posthoc_error {
+    display: inline;
+    float: right;
+    width: 300px;
+    height: 200px;
+    background: #ff0000;
+
+}
