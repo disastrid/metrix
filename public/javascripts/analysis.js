@@ -50,8 +50,8 @@ $(document).ready(function() {
 
 
 // Add User
-    function addUser(x) {
-        if (x == 1)
+    function addUser(num) {
+        if (num == 1)
             ident = "Dianne";
         else 
             ident = "Tim";

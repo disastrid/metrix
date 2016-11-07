@@ -74,7 +74,7 @@ p.studyButtonText {
         background-color: #fff;
         opacity: 1;
         font-weight: normal;
-        width: 80%;
+        width: 50%;
         padding: 10px;
         text-align: center;
     }
@@ -230,7 +230,16 @@ p.text_posthoc {
     text-align: center;
     size: 20px;
     font-weight: bold;
-    margin-top: 20px;
+    padding-top: 70px;
+}
+
+p.text_posthoc_start{
+    color: #fff;
+    font-family: Helvetica, sans-serif;
+    text-align: center;
+    size: 20px;
+    font-weight: bold;
+    padding-top: 20px;
 }
 
 #posthoc_feedback {

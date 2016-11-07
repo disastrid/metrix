@@ -10,7 +10,7 @@ html
             var socket = io.connect('http://localhost:8080')
             //var socket = io.connect('http://178.62.101.48');
         script(src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js')
-        script(src='/javascripts/global.js')
+        // script(src='/javascripts/global.js')
         script(src='/javascripts/posthoc.js')
         // Put your variables here:
         // uniqueId is the YouTube id of the video you want to play
@@ -21,18 +21,21 @@ html
             var playStart = 10;
             var num = 1;
             var uniqueId = 's7vOEjByFgk';
+            var vidNum = 1;
     body
         block content
-                
+            #overlay
+                #insideOverlay.textBox 
+            #wrapper
                     
-            #player
+                #player
 
-            #posthoc_start
-                p.text_posthoc START
+                #posthoc_start
+                    p.text_posthoc_start START
 
-            #posthoc_feedback
-                #posthoc_isGood
-                    p.text_posthoc I LIKE THIS
+                #posthoc_feedback
+                    #posthoc_isGood
+                        p.text_posthoc I LIKE THIS
 
-                #posthoc_error
-                    p.text_posthoc THERE WAS AN ERROR
+                    #posthoc_error
+                        p.text_posthoc THERE WAS AN ERROR

@@ -1,19 +1,29 @@
 
 $(document).ready(function() {
       // Report script loading and variables
-      console.log("posthoc.js reporting in");
-      console.log("start playing at " + playStart + " seconds");
+      console.log('posthoc.js reporting in');
+      console.log('start playing at ' + playStart + ' seconds');
+      // Get height and width of window to position dialog box.
+      var width = $(window).width();
+      var height = $(window).height();
+      var topMargin = Math.floor(height * 0.15);
+
+      $('#overlay').hide();
       
       // Tell us who we're analysing
-      if (num == 1)
-        console.log("we are analysing player " + num " - Dianne");
-      else
-        console.log("we are analysing player " + num " - Tim");
+      if (num == 1) {
+        console.log('we are analysing player ' + num);
+      }
+      else {
+        console.log('we are analysing player ' + num);
+      }
 
       // Run setup
       setUp();
-      // Add a user - use the variable that we specify in analyse.jade 
-      addUser(num);
+      
+
+      $("#insideOverlay").css("margin", topMargin + "px auto 0 auto")
+         .css("font-size", Math.floor(height/20) + "px");
 
       // Make the start button react to mousing over
       $("#posthoc_start").mouseover(function() {
@@ -27,27 +37,43 @@ $(document).ready(function() {
       // When the start button is pressed:
       $("#posthoc_start").click(function(event) {
         console.log("boom");
-        // startPlaying is a variable that allows us to stop the video being played by anything except this start button.
-        $(this).slideUp(800, function() {
-            alert("Click here when you're ready to watch the video.");
-        });
+        // Fade in the overlay, and the dialog box that will begin the video and analysis on click.
+        $('#overlay').fadeIn(500);
+        $('#insideOverlay').fadeIn(800).html('<p>Please click here to begin analysis</p>');
+        // Hide the start button and its text
+        $('.text_posthoc_start').hide();
+        $(this).slideUp(800);
+        // Fade in the green and red feedback buttons
         $("#posthoc_feedback").fadeIn(800);
-        
+      });
+
+      // Then, when the dialog is clicked: 
+      $('#insideOverlay').click(function() {
+        // Add the user to the database
+        addUser(num);
+        // Fade out the overlay to make the screen active, and start the video.
+        $('#overlay').fadeOut();
         startPlaying = true;
-        setTimeout(1500);
         player.playVideo();
         return false;
       });
+      
 
 
       // Update doc on isgood button click
-      $('.isGoodButton').on('click', function(){
+      $('#posthoc_isGood').on('click', function(){
           analyse_addIsGood();
+          $(this).hide();
+          $(this).fadeIn(200);
+
       });
 
       // Update doc on button click
-      $('.errorButton').on('click', function(){
+      $('#posthoc_error').on('click', function(){
           analyse_addError();
+          $(this).hide();
+          $(this).fadeIn(200);
+
       });
 
 
@@ -60,15 +86,16 @@ $(document).ready(function() {
 // Setup
     function setUp() {
         $("#posthoc_feedback").hide();
+        
     }
 
 // Add User
     function addUser(num) {
         if (num == 1) {
-          ident = "Dianne";
+          ident = 'Dianne';
         }
         else {
-          ident = "Tim";
+          ident = 'Tim';
         }
         // Log the ident so we can be sure it's correct:
         console.log('your ident is: ' + ident);
@@ -82,7 +109,7 @@ $(document).ready(function() {
           $.ajax({
               type: 'POST',
               data: newUser,
-              url: '/analyse/addUser',
+              url: '/analyse/analyse_addUser',
               dataType: 'JSON'
           }).done(function( response ) {
 

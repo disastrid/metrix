@@ -5,8 +5,8 @@ var groupNum = '';
 var messageContent = 0;
 
 
-var width = $(window).width();
-var height = $(window).height();
+var width = '';
+var height = '';
 
 
 
@@ -95,7 +95,7 @@ $(document).ready(function() {
     socket.on('end_broadcast', function() {
         console.log("I am a client and I heard an END command!");
         $('#overlay').fadeIn();
-        $('#insideOverlay').html('<p>Please fill out your questionnaires for Performance 4: Tim Exile and your End of Performance Survey. Your username is</p> <p class="username">' + ident + '</p><p>Thank you so much for your participation!</p>');
+        $('#insideOverlay').html('<p>Please fill out your questionnaires for Group 2: Performance 2 and your End of Performance Survey. Your username is</p> <p class="username">' + ident + '</p><p>Thank you so much for your participation!</p>');
         // code here to stop performance, grey UI, show username and thank for participating
     });
     socket.on('end_test_broadcast', function() {
@@ -107,19 +107,19 @@ $(document).ready(function() {
     socket.on('pause_1_broadcast', function() {
         console.log('I am a client and I heard a PAUSE1 command!');
         $('#overlay').fadeIn();
-        $('#insideOverlay').html('<p>Please fill out your questionnaire for Performance 1: Dianne Verdonk. Your username is</p> <p class="username">' + ident + '</p>');
+        $('#insideOverlay').html('<p>Please fill out your questionnaire for Group 1: Performance 1. Your username is</p> <p class="username">' + ident + '</p>');
         // code here to pause performance, grey UI and show username
     });
     socket.on('pause_2_broadcast', function() {
         console.log('I am a client and I heard a PAUSE1 command!');
         $('#overlay').fadeIn();
-        $('#insideOverlay').html('<p>Please fill out your questionnaire for Performance 2: Tim Exile. Your username is</p> <p class="username">' + ident + '</p>');
+        $('#insideOverlay').html('<p>Please fill out your questionnaire for Group 1: Performance 2. Your username is</p> <p class="username">' + ident + '</p>');
         // code here to pause performance, grey UI and show username
     });
     socket.on('pause_3_broadcast', function() {
         console.log('I am a client and I heard a PAUSE1 command!');
         $('#overlay').fadeIn();
-        $('#insideOverlay').html('<p>Please fill out your questionnaire for Performance 3: Dianne Verdonk. Your username is</p> <p class="username">' + ident + '</p>');
+        $('#insideOverlay').html('<p>Please fill out your questionnaire for Group 2: Performance 1. Your username is</p> <p class="username">' + ident + '</p>');
         // code here to pause performance, grey UI and show username
     });
     socket.on('resume_broadcast', function() {

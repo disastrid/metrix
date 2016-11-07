@@ -11,7 +11,7 @@ router.post('/analyse_addUser', function(req, res) {
     var collection = db.get('testcol');
     collection.insert(req.body, function (error, doc) {
         if (error) {
-          res.send("Could not create new user.");
+          res.send('Could not create new user.');
         } else {
             res.send({msg:''});
             console.log('user.js responding ...');
@@ -57,7 +57,7 @@ router.post('/analyse_resume', function(req, res) {
 });
 
 
-router.post('/analyse_errors', function(req, res) {
+router.post('/analyse_addError', function(req, res) {
     console.log(req.body);
     var identifier = req.body.ident;
     var db = req.db;
@@ -70,7 +70,7 @@ router.post('/analyse_errors', function(req, res) {
 });
 
 
-router.post('/analyse_isGood', function(req, res) {
+router.post('/analyse_addIsGood', function(req, res) {
     console.log(req.body);
     var identifier = req.body.ident;
     var db = req.db;
