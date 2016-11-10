@@ -11,7 +11,7 @@ router.post('/remote_start', function(req, res) {
     console.log(req.body);
     var identifier = req.body.ident;
     var db = req.db;
-    var collection = db.get('testcol');
+    var collection = db.get('study2');
     collection.update({'ident': identifier}, {$push: {'start_button': Date(), 'start_button_millis': Date.now()}}, function(err, result){
         res.send(
             (err === null) ? { msg: '' } : { msg: err }
@@ -23,7 +23,7 @@ router.post('/remote_end', function(req, res) {
     console.log(req.body);
     var identifier = req.body.ident;
     var db = req.db;
-    var collection = db.get('testcol');
+    var collection = db.get('study2');
     collection.update({'ident': identifier}, {$push: {'stop_button': Date(), 'stop_button_millis': Date.now()}}, function(err, result){
         res.send(
             (err === null) ? { msg: '' } : { msg: err }
@@ -35,7 +35,7 @@ router.post('/remote_test_start', function(req, res) {
     console.log(req.body);
     var identifier = req.body.ident;
     var db = req.db;
-    var collection = db.get('testcol');
+    var collection = db.get('study2');
     collection.update({'ident': identifier}, {$push: {'test_start_button': Date(), 'test_start_button_millis': Date.now()}}, function(err, result){
         res.send(
             (err === null) ? { msg: '' } : { msg: err }
@@ -47,7 +47,7 @@ router.post('/remote_test_end', function(req, res) {
     console.log(req.body);
     var identifier = req.body.ident;
     var db = req.db;
-    var collection = db.get('testcol');
+    var collection = db.get('study2');
     collection.update({'ident': identifier}, {$push: {'test_stop_button': Date(), 'test_stop_button_millis': Date.now()}}, function(err, result){
         res.send(
             (err === null) ? { msg: '' } : { msg: err }
@@ -59,7 +59,7 @@ router.post('/remote_pause1', function(req, res) {
     console.log(req.body);
     var identifier = req.body.ident;
     var db = req.db;
-    var collection = db.get('testcol');
+    var collection = db.get('study2');
     collection.update({'ident': identifier}, {$push: {'pause_1_button': Date(), 'pause_1_button_millis': Date.now()}}, function(err, result){
         res.send(
             (err === null) ? { msg: '' } : { msg: err }
@@ -71,7 +71,7 @@ router.post('/remote_pause2', function(req, res) {
     console.log(req.body);
     var identifier = req.body.ident;
     var db = req.db;
-    var collection = db.get('testcol');
+    var collection = db.get('study2');
     collection.update({'ident': identifier}, {$push: {'pause_2_button': Date(), 'pause_2_button_millis': Date.now()}}, function(err, result){
         res.send(
             (err === null) ? { msg: '' } : { msg: err }
@@ -83,7 +83,7 @@ router.post('/remote_pause3', function(req, res) {
     console.log(req.body);
     var identifier = req.body.ident;
     var db = req.db;
-    var collection = db.get('testcol');
+    var collection = db.get('study2');
     collection.update({'ident': identifier}, {$push: {'pause_3_button': Date(), 'pause_3_button_millis': Date.now()}}, function(err, result){
         res.send(
             (err === null) ? { msg: '' } : { msg: err }
@@ -95,7 +95,7 @@ router.post('/remote_resume', function(req, res) {
     console.log(req.body);
     var identifier = req.body.ident;
     var db = req.db;
-    var collection = db.get('testcol');
+    var collection = db.get('study2');
     collection.update({'ident': identifier}, {$push: {'resume_button': Date(), 'resume_button_millis': Date.now()}}, function(err, result){
         res.send(
             (err === null) ? { msg: '' } : { msg: err }

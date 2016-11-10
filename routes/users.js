@@ -9,7 +9,7 @@ var router = express.Router();
  // /dbData is where we can see the contents of our database!
 router.get('/dbData', function(req, res) {
     var db = req.db;
-    var collection = db.get('testcol'); // name of the collection
+    var collection = db.get('study2'); // name of the collection
     collection.find({},{},function(e,docs){
         res.json(docs);
     });
@@ -20,7 +20,7 @@ router.get('/dbData', function(req, res) {
  */
 router.post('/adduser', function(req, res) {
     var db = req.db;
-    var collection = db.get('testcol');
+    var collection = db.get('study2');
     collection.insert(req.body, function (error, doc) {
         if (error) {
           res.send("Could not create new user.");
@@ -39,7 +39,7 @@ router.post('/errors', function(req, res) {
     console.log(req.body);
     var identifier = req.body.ident;
     var db = req.db;
-    var collection = db.get('testcol');
+    var collection = db.get('study2');
     collection.update({'ident': identifier}, {$push: {'error_button': Date(), 'error_button_millis': Date.now()}}, function(err, result){
         res.send(
             (err === null) ? { msg: '' } : { msg: err }
@@ -55,7 +55,7 @@ router.post('/isgood', function(req, res) {
     console.log(req.body);
     var identifier = req.body.ident;
     var db = req.db;
-    var collection = db.get('testcol');
+    var collection = db.get('study2');
     collection.update({'ident': identifier}, {$push: {'is_good_button': Date(), 'is_good_button_millis': Date.now()}}, function(err, result){
         res.send(
             (err === null) ? { msg: '' } : { msg: err }

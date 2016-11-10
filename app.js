@@ -11,7 +11,7 @@ var randomWords = require('random-words');
 // Database
 var mongo = require('mongodb');
 var monk = require('monk');
-var db = monk('localhost:27017/test');
+var db = monk('localhost:27017/study2_nov2016');
 
 // our express routes
 var routes = require('./routes/index');
