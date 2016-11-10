@@ -132,12 +132,13 @@ p.studyButtonText {
 }
 .errorButton span,
 .isGoodButton span {
-    bottom: 15em;
-    left: 15em;
+    bottom: 0;
+    left: 0;
+    margin: 100px;
     pointer-events: none;
     position: absolute;
-    right: 15em;
-    top: 15em;
+    right: 0;
+    top: 0;
 }
 .errorButton:active,
 .isGoodButton:active {
@@ -161,7 +162,7 @@ p.studyButtonText {
     background-image: url(../images/good.svg);
     background-position: center center;
     background-repeat: no-repeat;
-    background-size: contain;
+    background-size: 25%;
     opacity: 1;
 }
 .errorButton {
@@ -174,7 +175,7 @@ p.studyButtonText {
     background-image: url(../images/error.svg);
     background-position: center center;
     background-repeat: no-repeat;
-    background-size: contain;
+    background-size: 25%;
     opacity: 1;    
 }
 
