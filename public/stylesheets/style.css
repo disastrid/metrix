@@ -132,11 +132,12 @@ p.studyButtonText {
 }
 .errorButton span,
 .isGoodButton span {
-    position: absolute;
     bottom: 15em;
     left: 15em;
-    top: 15em;
+    pointer-events: none;
+    position: absolute;
     right: 15em;
+    top: 15em;
 }
 .errorButton:active,
 .isGoodButton:active {
