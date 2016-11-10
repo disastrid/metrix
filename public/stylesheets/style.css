@@ -1,3 +1,20 @@
+@keyframes buttonAnim {
+    0% {
+        background-color: #eee;
+    }
+    75% {
+        background-color: #333;
+    }
+}
+@keyframes buttonSpanAnim {
+    0% {
+        opacity: 1;
+    }
+    75% {
+        opacity: 0;
+    }
+}
+
 * {
     /* stop double click selecting of text */
     -webkit-user-select: none;
@@ -6,12 +23,13 @@
          -o-user-select: none;
             user-select: none;
 }
+
 body {
     margin: 0;
     padding: 0;
     height: 100%;
     width: 100%;
-    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    font: 14px Helvetica, Arial, sans-serif;
     background: #eee;
 }
 
@@ -115,25 +133,49 @@ p.studyButtonText {
 }
 .errorButton span,
 .isGoodButton span {
-    display: inline-block;
-    font-size: 4em;
+    position: absolute;
+    bottom: 15em;
+    left: 15em;
+    top: 15em;
+    right: 15em;
 }
 .errorButton:active,
 .isGoodButton:active {
-    background: #333;
+    animation-name: buttonAnim;
+    animation-direction: forward;
+    animation-duration: .3s;
+}
+.errorButton:active span,
+.isGoodButton:active span {
+    animation-name: buttonSpanAnim;
+    animation-direction: forward;
+    animation-duration: .3s;
 }
 .isGoodButton {
     left: 0;
     right: 50%;
-    background: #60AB15;
+    background-color: #eee;
+    border: 2em solid #bbb;
 }
 .isGoodButton span {
-    transform: rotate(90deg);
+    background-image: url(../images/good.svg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    opacity: 1;
 }
 .errorButton {
-    right: 0;
     left: 50%;
-    background: #AB1515;
+    right: 0;
+    background-color: #eee;
+    border: 2em solid #bbb;
+}
+.errorButton span {
+    background-image: url(../images/error.svg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    opacity: 1;    
 }
 
 .start:active,
