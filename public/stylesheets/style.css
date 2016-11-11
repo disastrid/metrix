@@ -24,6 +24,10 @@
             user-select: none;
 }
 
+html {
+    -webkit-tap-highlight-color: transparent;
+}
+
 body {
     margin: 0;
     padding: 0;
