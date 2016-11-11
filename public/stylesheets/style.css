@@ -147,7 +147,14 @@ p.studyButtonText {
     // animation-name: buttonAnim;
     // animation-direction: forward;
     // animation-duration: .3s;
+    outline: 0;
 }
+
+.errorButton:focus,
+.isGoodButton:focus {
+    outline: 0;
+}
+
 .errorButton:active span,
 .isGoodButton:active span {
     // animation-name: buttonSpanAnim;
