@@ -129,6 +129,7 @@ p.studyButtonText {
     top: 0;
     cursor: pointer;
     text-align: center;
+    user-select: none;
 }
 .errorButton span,
 .isGoodButton span {
@@ -146,7 +147,6 @@ p.studyButtonText {
     // animation-name: buttonAnim;
     // animation-direction: forward;
     // animation-duration: .3s;
-    user-select: none;
 }
 .errorButton:active span,
 .isGoodButton:active span {
