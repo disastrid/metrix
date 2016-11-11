@@ -1,19 +1,19 @@
-@keyframes buttonAnim {
-    0% {
-        background-color: #eee;
-    }
-    75% {
-        background-color: #333;
-    }
-}
-@keyframes buttonSpanAnim {
-    0% {
-        opacity: 1;
-    }
-    75% {
-        opacity: 0;
-    }
-}
+// @keyframes buttonAnim {
+//     0% {
+//         background-color: #eee;
+//     }
+//     75% {
+//         background-color: #333;
+//     }
+// }
+// @keyframes buttonSpanAnim {
+//     0% {
+//         opacity: 1;
+//     }
+//     75% {
+//         opacity: 0;
+//     }
+// }
 
 * {
     /* stop double click selecting of text */
@@ -142,15 +142,16 @@ p.studyButtonText {
 }
 .errorButton:active,
 .isGoodButton:active {
-    animation-name: buttonAnim;
-    animation-direction: forward;
-    animation-duration: .3s;
+    background-color: #333;
+    // animation-name: buttonAnim;
+    // animation-direction: forward;
+    // animation-duration: .3s;
 }
 .errorButton:active span,
 .isGoodButton:active span {
-    animation-name: buttonSpanAnim;
-    animation-direction: forward;
-    animation-duration: .3s;
+    // animation-name: buttonSpanAnim;
+    // animation-direction: forward;
+    // animation-duration: .3s;
 }
 .isGoodButton {
     left: 0;
@@ -162,7 +163,7 @@ p.studyButtonText {
     background-image: url(../images/good.svg);
     background-position: center center;
     background-repeat: no-repeat;
-    background-size: 25%;
+    background-size: 75%;
     opacity: 1;
 }
 .errorButton {
@@ -175,7 +176,7 @@ p.studyButtonText {
     background-image: url(../images/error.svg);
     background-position: center center;
     background-repeat: no-repeat;
-    background-size: 25%;
+    background-size: 75%;
     opacity: 1;    
 }
 
