@@ -76,6 +76,21 @@ $(document).ready(function() {
         addError();
     });
 
+    if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {
+        $('.isGoodButton, .errorButton').on('touchstart', function(){
+            $(this).addClass('active');
+        });        
+        $('.isGoodButton, .errorButton').on('touchmove', function(){
+            $(this).removeClass('active');
+        });        
+        $('.isGoodButton, .errorButton').on('touchcancel', function(){
+            $(this).removeClass('active');
+        });        
+        $('.isGoodButton, .errorButton').on('touchend', function(){
+            $(this).removeClass('active');
+        });        
+    }
+
     // When a message is received by the client from the server:
     // $('#overlay').hide();
     socket.on("start_broadcast", function() {
