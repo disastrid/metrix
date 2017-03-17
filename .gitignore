@@ -1,2 +1,7 @@
+<<<<<<< HEAD
 # Git ignore file - ignore app_oldtestVersion, which is the repo of the former Metrix project where I was trying to write my own NPM module for random word generation before I came to my goddamn senses.
 app_oldTestVersion/
+=======
+npm-debug.log
+node_modules/*
+>>>>>>> 763f15c5e8da214744d8f804a5a8c65b901a310c

@@ -1,6 +1,10 @@
 $(document).ready(function() {
 
     console.log("remote.js checking in");
+<<<<<<< HEAD
+=======
+    console.log("**Socket.IO Version: " + require('socket.io/package').version);
+>>>>>>> 763f15c5e8da214744d8f804a5a8c65b901a310c
     //Event handling for button clicks
     // START AND END TEST:
 
