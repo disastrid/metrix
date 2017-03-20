@@ -42,20 +42,20 @@ jekyll-archives:
 
 # Owner/author information
 author:
-  name:           Your Name
+  name:           Astrid Bin
   picture:        your-photo.jpg
-  email:          your@email.com
+  email:          astrid@astridbin.com
   # Use the coder's toolbox at http://coderstoolbox.net/string/#!encoding=xml&action=encode&charset=us_ascii to encode your description into XML string
-  description:    Some Details about yourself
+  description:    Astrid is an artist and technologist. She's in the terminal stages of a PhD at Queen Mary University of London.
   # Social networking links used in footer. Update and remove as you like.
-  twitter:
+  twitter: disastrid
   facebook:
-  github:
+  github: disastrid
   linkedin:
-  instagram:
+  instagram: disastrid
   tumblr:
   # For Google Authorship https://plus.google.com/authorship
-  google_plus:    "http://plus.google.com/123123123123132123"
+  #google_plus:    "http://plus.google.com/123123123123132123"
 
 # Analytics and webmaster tools stuff goes here
 google_analytics:
