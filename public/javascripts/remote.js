@@ -1,8 +1,48 @@
 $(document).ready(function() {
 
-
+    $('#status').html(systemStatus);
     //Event handling for button clicks
     // START AND END TEST:
+    var systemStatus = null;
+
+
+    
+    var counter = 0;
+
+    var doPing = function() {
+        setInterval(function () {
+            if (counter >= 10) {
+                clearDoPing();
+                counter = 0;
+            } else {
+                socket.emit("testing_testing", {'message': 'There has been a START_TEST received'});
+                console.log("testing_testing" + ' ' + counter);
+                counter++;
+            }
+        }, 1000);
+    };
+
+    var clearDoPing = function () {
+        clearInterval(doPing);
+        console.log('ping cleared');
+    };
+
+    var buttons = document.getElementsByName('remote');
+    for (var i = buttons.length; i--;) {
+        buttons[i].onchange = function() {
+            counter = 0;
+            systemStatus = this.value;
+            $('#status').html("I am here " + systemStatus);
+            doPing();
+        }
+    }
+
+
+    
+
+    
+    
+    
 
     $(".start_test").on("click", function() {
         // This sends the message:

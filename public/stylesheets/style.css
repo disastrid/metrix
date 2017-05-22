@@ -6,14 +6,18 @@
          -o-user-select: none;
             user-select: none;
 }
+
+@import url('https://fonts.googleapis.com/css?family=Arvo');
 body {
     margin: 0;
     padding: 0;
     height: 100%;
     width: 100%;
-    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    font-family: 'Arvo', serif;
     background: #eee;
 }
+
+
 
 h2 {
     margin:0 0 .5em 0;
@@ -25,8 +29,13 @@ a {
 
 p.buttonText {
     font-weight: bold;
+    font-size: 2em;
     color: #fff;
+    text-decoration: none;
     text-align: center;
+    font-family: 'Arvo', serif;
+    line-height: auto;
+    // margin: auto 0;
 }
 
 p.studyButtonText {
@@ -49,8 +58,33 @@ p.studyButtonText {
     width: 80%;
 }
 
+#status {
+    margin: 0 auto;
+    width: 100%;
+    height: 100px;
+    background-color: #ff0000;
+}
+
+[type="radio"] {
+  border: 0;
+  height: 15px; 
+  padding: 0;
+  position: absolute;
+  width: 10px;
+}
+
+label {
+  display: block;
+  margin: 25px 0 25px 25px;
+}
+
+
 #button {
     position: relative;
+}
+
+#button span {
+    font-family: 'Roboto Mono', monospace;
 }
 
 #first {
@@ -74,27 +108,31 @@ p.studyButtonText {
         background-color: #fff;
         opacity: 1;
         font-weight: normal;
-        width: 80%;
-        padding: 10px;
+        width: 70%;
+        padding: 20px;
         text-align: center;
     }
     p.username {
         font-weight: bold;
     }
 
-.insertButton1 {
+.insertButton {
     background: #FF0000;
-    float: left;
-    border-radius: 50%;
+    // float: left;
+    margin: 0 auto;
+    padding: 10% 5%;
+    // padding: 10% 0 0 0;
+    // border-radius: 50%;
     width: 45%;
+    height: 45%;
 }
 
-.insertButton2 {
-    background: #0000FF;
-    float: right;
-    border-radius: 50%;
-    width: 45%;
-}
+// .insertButton2 {
+//     background: #0000FF;
+//     float: right;
+//     border-radius: 50%;
+//     width: 45%;
+// }
 
 #second {
     position: absolute;
@@ -112,6 +150,11 @@ p.studyButtonText {
     top: 0;
     cursor: pointer;
     text-align: center;
+    -webkit-transition: all 1s ease-out 0s;
+  -moz-transition: all 1s ease-out 0s;
+  -ms-transition: all 1s ease-out 0s;
+  -o-transition: all 1s ease-out 0s;
+  transition: all 1s ease-out 0s;
 }
 .errorButton span,
 .isGoodButton span {

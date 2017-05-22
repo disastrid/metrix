@@ -4,37 +4,108 @@ block content
     #wrapper
         h1="Remote Button Panel"
         #container
+            extends layout
+
+            #status
+                p="I am not active"
+  
+            <form>
+            <input type="radio" name="remote" id="not_started" value="not_checked" checked>
+            <label for="not_started">System not started yet</label> 
             
-            a(href='#')
-                #remoteButton.start_test
-                    p.remoteButtonText START TEST PHASE TESTTEST
-
-            a(href='#')
-                #remoteButton.end_test
-                    p.remoteButtonText END TEST PHASE
-
-            a(href='#')
-                #remoteButton.start
-                    p.remoteButtonText START PERFORMANCE
-
-            a(href='#')
-                #remoteButton.pause1
-                    p.remoteButtonText PAUSE 1 - FILL OUT SURVEY 1
-        
-            a(href='#')
-                #remoteButton.pause2
-                    p.remoteButtonText PAUSE 2 - FILL OUT SURVEY 2
-
-            a(href='#')
-                #remoteButton.pause3
-                    p.remoteButtonText PAUSE 3 - FILL OUT SURVEY 3
-        
-            a(href='#')
-                #remoteButton.resume
-                    p.remoteButtonText RESUME
+            <input type="radio" name="remote" id="test_phase" value="testing_testing">
+            <label for="test_phase">Testing phase</label> 
             
-            a(href='#')
-                #remoteButton.end
-                    p.remoteButtonText END PERFORMANCE
+            <input type="radio" name="remote" id="paused" value="paused">
+            <label for="paused">Paused</label>
+            
+            <input type="radio" name="remote" id="perf_01" value="perf_01">
+            <label for="perf_01">Performance 1</label>
+            
+            <input type="radio" name="remote" id="perf_02" value="perf_02">
+            <label for="perf_02">Performance 2</label>
+            
+            <input type="radio" name="remote" id="perf_03" value="perf_03">
+            <label for="perf_03">Performance 3</label>
+            
+            <input type="radio" name="remote" id="perf_04" value="perf_04">
+            <label for="perf_04">Performance 4</label>
+            
+            <input type="radio" name="remote" id="perf_05" value="perf_05">
+            <label for="perf_05">Performance 5</label>
+            
+            <input type="radio" name="remote" id="perf_06" value="perf_06">
+            <label for="perf_06">Performance 6</label>
+            
+            <input type="radio" name="remote" id="fabio" value="fabio">
+            <label for="fabio">Fabio</label>
+                     
+            <input type="radio" name="remote" id="end" value="end">
+            <label for="end">End of concert</label>
+            </form>
+
+            //a(href='#')
+                //#remoteButton.start_test
+                    //p.remoteButtonText START TEST PHASE
+
+            //a(href='#')
+                //#remoteButton.end_test
+                    //p.remoteButtonText END TEST PHASE
+
+            //a(href='#')
+                //#remoteButton.start_perf01
+                    //p.remoteButtonText START PERFORMANCE 1
+
+            //a(href='#')
+                //#remoteButton.pause_perf01
+                    //p.remoteButtonText PAUSE 1 - FILL OUT SURVEY 1
+
+            //a(href='#')
+                //#remoteButton.start_perf02
+                    //p.remoteButtonText START PERFORMANCE 2
+        
+            //a(href='#')
+                //#remoteButton.pause_perf02
+                    //p.remoteButtonText PAUSE 2 - FILL OUT SURVEY 2
+
+            //a(href='#')
+                //#remoteButton.start_perf02
+                    //p.remoteButtonText START PERFORMANCE 2
+        
+            //a(href='#')
+                //#remoteButton.pause_perf02
+                    //p.remoteButtonText PAUSE 2 - FILL OUT SURVEY 2
+
+            //a(href='#')
+                //#remoteButton.start_perf02
+                    //p.remoteButtonText START PERFORMANCE 2
+        
+            //a(href='#')
+                //#remoteButton.pause_perf02
+                    //p.remoteButtonText PAUSE 2 - FILL OUT SURVEY 4
+
+            //a(href='#')
+                //#remoteButton.start_perf02
+                    //p.remoteButtonText START PERFORMANCE 2
+        
+            //a(href='#')
+                //#remoteButton.pause_perf02
+                    //p.remoteButtonText PAUSE 2 - FILL OUT SURVEY 2
+
+            //a(href='#')
+                //#remoteButton.pause1
+                    //p.remoteButtonText PAUSE 1 - FILL OUT SURVEY 1
+
+            //a(href='#')
+                //#remoteButton.pause3
+                    //p.remoteButtonText PAUSE 3 - FILL OUT SURVEY 3
+        
+            //a(href='#')
+                //#remoteButton.resume
+                    //p.remoteButtonText RESUME
+            
+            //a(href='#')
+                //#remoteButton.end
+                    //p.remoteButtonText END PERFORMANCE
     
     // /WRAPPER

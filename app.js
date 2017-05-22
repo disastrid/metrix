@@ -60,6 +60,14 @@ io.on("connection", function (socket) {
     io.emit("start_broadcast");
   });
 
+  socket.on("testing_testing", function(socket){
+    // This is just here in case we need to send a message, it might work without:
+    console.log("App.js reporting in. Server received TEST message from the remote. Broadcasting ...");
+    // io.emit("start_broadcast", message);
+    io.emit("testing_testing");
+  });
+
+
   // END THE PERFORMANCE:
   socket.on("end_broadcast", function(socket) {
     console.log("Server received END message from the remote. Broadcasting ...");

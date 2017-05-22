@@ -4,6 +4,8 @@ var ident = '';
 var groupNum = '';
 var messageContent = 0;
 
+var performance = 0;
+
 
 var width = $(window).width();
 var height = $(window).height();
@@ -50,21 +52,21 @@ $(document).ready(function() {
     $('#overlay').hide();
     $('#second').hide(); // start with the study buttons hidden
     // Add User button click
-    $('.insertButton1').on('click', function() {
-        addUserGroup1();        // add the user
+    $('.insertButton').on('click', function() {
+        addUser();        // add the user
         $('#overlay').fadeIn();
         $('#insideOverlay').html('<p>Please wait for the performance to begin. <br />In the meantime you can write your name on your survey book. Your username is:</p> <p class="username">' + ident + '</p>');
         $('#first').hide();     // hide the group buttons
         $('#second').show();    // show the study buttons
     });
 
-    $('.insertButton2').on('click', function(){
-        addUserGroup2(); //addUser the user
-        $('#overlay').fadeIn();
-        $('#insideOverlay').html('<p>Please wait for the performance to begin. <br />In the meantime you can write your name on your survey book. Your username is:</p> <p class="username">' + ident + '</p>');
-        $('#first').hide();     // hide the group buttons
-        $('#second').show();    // show the study buttons
-    });
+    // $('.insertButton2').on('click', function(){
+    //     addUserGroup2(); //addUser the user
+    //     $('#overlay').fadeIn();
+    //     $('#insideOverlay').html('<p>Please wait for the performance to begin. <br />In the meantime you can write your name on your survey book. Your username is:</p> <p class="username">' + ident + '</p>');
+    //     $('#first').hide();     // hide the group buttons
+    //     $('#second').show();    // show the study buttons
+    // });
 
     // Update doc on isgood button click
     $('.isGoodButton').on('click', function(){
@@ -76,6 +78,11 @@ $(document).ready(function() {
         addError();
     });
 
+
+    socket.on("testing_testing", function() {
+      console.log("I am the client and I received test start");  
+      $('#overlay').fadeOut();
+    });
     // When a message is received by the client from the server:
     // $('#overlay').hide();
     socket.on("start_broadcast", function() {
@@ -142,9 +149,9 @@ window.addEventListener("orientationchange", function() {
 }, false);
 
 // Add User
-function addUserGroup1() {
+function addUser() {
 
-    groupNum = "group 1";
+    groupNum = "group 3";
     ident = makeWords(2);
 
     console.log('your ident is: ' + ident);
