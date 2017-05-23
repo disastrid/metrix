@@ -1,114 +1,104 @@
 $(document).ready(function() {
 
+    var systemStatus = "loaded";
     $('#status').html(systemStatus);
     //Event handling for button clicks
     // START AND END TEST:
-    var systemStatus = null;
-
 
     
-    var counter = 0;
+    var serverCommunication = '';
 
-    var doPing = function() {
-        setInterval(function () {
-            if (counter >= 10) {
-                clearDoPing();
-                counter = 0;
-            } else {
-                socket.emit("testing_testing", {'message': 'There has been a START_TEST received'});
-                console.log("testing_testing" + ' ' + counter);
-                counter++;
-            }
-        }, 1000);
-    };
+    
 
-    var clearDoPing = function () {
-        clearInterval(doPing);
-        console.log('ping cleared');
-    };
 
-    var buttons = document.getElementsByName('remote');
-    for (var i = buttons.length; i--;) {
-        buttons[i].onchange = function() {
-            counter = 0;
-            systemStatus = this.value;
-            $('#status').html("I am here " + systemStatus);
-            doPing();
+    function doPing() {
+        if (++counter <=10) {
+            socket.emit(serverCommunication, {'message': 'There has been a start_test received'});
+            console.log(serverCommunication + " message is going ... " + counter);
+        } else {
+            clearInterval(timer);
+            console.log(serverCommunication.name + " pings are done");
+
         }
+    };
+
+
+
+    
+    function doThePing(info) {
+        var counter = 0;
+        var timer = setInterval(function() {
+            socket.emit(info, {'message': 'There has been a' + info + 'received'});
+            if (++counter > 3) {
+                clearInterval(timer);
+                counter = 0;
+                console.log("ping is finished");
+            }
+        }, 500);
     }
-
-
     
 
-    
-    
-    
-
-    $(".start_test").on("click", function() {
+    $(".remoteButton").on("click", function() {
         // This sends the message:
         // var data = {message: 1};
-        socket.emit("start_test_broadcast", {'message': 'There has been a START_TEST received'});
-        console.log("I am the remote and I sent a START_TEST command!");
-        // This records the action in the database:
-        logTestStart();
+        // counter = 0;
+        serverCommunication = $(this).text().toLowerCase()+'_broadcast';
+        doThePing(serverCommunication);
+        // console.log("I am the remote and I sent a START_TEST command!");
+        logButton($(this).text());
     });
 
-    $(".end_test").on("click", function() {
-        // This sends the message:
-        // var data = {message: 1};
-        socket.emit("end_test_broadcast", {'message': 'There has been a END_TEST received'});
-        console.log("I am the remote and I sent a END_TEST command!");
-        // This records the action in the database:
-        logTestEnd();
-    });
+    // $(".end_test").on("click", function() {
+    //     // This sends the message:
+    //     // var data = {message: 1};
+    //     socket.emit("end_test_broadcast", {'message': 'There has been a END_TEST received'});
+    //     console.log("I am the remote and I sent a END_TEST command!");
+    //     // This records the action in the database:
+    //     logTestEnd();
+    // });
 
-    // Start the performance:
+    // // Start the performance:
 
-    $(".start").on("click", function() {
-        // This sends the message:
-        // var data = {message: 1};
-        socket.emit("start_broadcast", {'message': 'There has been a pause received'});
-        console.log("I am the remote and I sent a START command!");
-        // This records the action in the database:
-        logStart();
-    });
+    // $(".start").on("click", function() {
+    //     // This sends the message:
+    //     // var data = {message: 1};
+    //     socket.emit("start_broadcast", {'message': 'There has been a pause received'});
+    //     console.log("I am the remote and I sent a START command!");
+    //     // This records the action in the database:
+    //     logStart();
+    // });
 
-    // End the performance:
+    // // End the performance:
 
-    $(".end").on("click", function() {
-        socket.emit("end_broadcast", {'message': 'There has been an end received'});
-        console.log("I am the remote and I sent an END command!");
-        logEnd();
-    });
+    // $(".end").on("click", function() {
+    //     socket.emit("end_broadcast", {'message': 'There has been an end received'});
+    //     console.log("I am the remote and I sent an END command!");
+    //     logEnd();
+    // });
 
-    // Pause the interface after performances 1, 2, and 3:
+    // // Pause the interface after performances 1, 2, and 3:
 
-    $(".pause1").on("click", function() {
-        socket.emit("pause_1_broadcast", {'message': 'There has been a PAUSE1 received'});
-        console.log("I am the remote and I sent a PAUSE1 command!");
-        logPause1();
-    });
+    // $(".pause1").on("click", function() {
+    //     socket.emit("pause_1_broadcast", {'message': 'There has been a PAUSE1 received'});
+    //     console.log("I am the remote and I sent a PAUSE1 command!");
+    //     logPause1();
+    // });
 
-    $(".pause2").on("click", function() {
-        socket.emit("pause_2_broadcast", {'message': 'There has been a PAUSE2 received'});
-        console.log("I am the remote and I sent a PAUSE2 command!");
-        logPause2();
-    });
+    // $(".pause2").on("click", function() {
+    //     socket.emit("pause_2_broadcast", {'message': 'There has been a PAUSE2 received'});
+    //     console.log("I am the remote and I sent a PAUSE2 command!");
+    //     logPause2();
+    // });
 
-    $(".pause3").on("click", function() {
-        socket.emit("pause_3_broadcast", {'message': 'There has been a PAUSE1 received'});
-        console.log("I am the remote and I sent a PAUSE3 command!");
-        logPause3();
-    });
+    // $(".pause3").on("click", function() {
+    //     socket.emit("pause_3_broadcast", {'message': 'There has been a PAUSE1 received'});
+    //     console.log("I am the remote and I sent a PAUSE3 command!");
+    //     logPause3();
+    // });
 
     // resume the UI for the performance:
 
-    $(".resume").on("click", function() {
-        socket.emit("resume_broadcast", {'message': 'There has been a resume received'});
-        console.log("I am the remote and I sent a RESUME command!");
-        logResume();
-    });
-
+    
 
 
     $(window).on('beforeunload', function(){
@@ -119,24 +109,27 @@ $(document).ready(function() {
     // Helper functions for writing to database:
     // START
 
-    function logStart() {
+    function logButton(buttonName) {
         // NOTE: function used to be identified as logStart(event). Howeve,r 
         // event.preventDefault();
             // If it is, compile all user info into one object
-            var ident = 'remote';
+            var ident = 'remote_test';
+            var button = buttonName;
+            console.log("remote js posting: " + buttonName);
             var identifyMe = {
-                'ident': ident
+                'ident': ident,
+                'button_name': button
             }
             // Use AJAX to post the object to our adduser service
             $.ajax({
                 type: 'POST',
-                url: '/remote/remote_start',
+                url: '/remote/logButton',
                 data: identifyMe,
                 dataType: 'JSON'
             }).done(function( response ) {
                 // Check for successful (blank) response
                 if (response.msg === '') {
-                    console.log("Successfully logged START time for '" + ident + "' user.");
+                    console.log("Successfully logged timestamp for " + button + " button.");
                 }
                 else {
                     // If something goes wrong, alert the error message that our service returned

@@ -30,6 +30,7 @@ var io = require('socket.io').listen(server);
 
  server.listen(8080);
  console.log("server started");
+ console.log("i'm alive");
 
 
 // Set up sockets business, with a connection module. Right now it just console logs when a user connects.
@@ -53,18 +54,33 @@ io.on("connection", function (socket) {
 
 // Now, we set up messages for the Start, Pause, Resume and Stop actions from the remote control page.
 // START THE PERFORMANCE:
-  socket.on("start_broadcast", function(socket){
+
+
+  // socket.on("start_test_broadcast", function(socket){
+  //   console.log("Server received START_TEST message from the remote. Broadcasting ...");
+    
+  //   // This is just here in case we need to send a message, it might work without:
+  //   // io.emit("start_broadcast", message);
+  //   io.emit("start_test_broadcast", communication);
+  // });
+
+    socket.on("start_test_broadcast", function(socket){
+    // console.log("TWO Server received START_TEST message from the remote. Broadcasting ...");
+    var communication = {
+      'name': 'start_test',
+      'status': 1
+    }
+    console.log('STARTING OMG');
     // This is just here in case we need to send a message, it might work without:
-    console.log("Server received START message from the remote. Broadcasting ...");
     // io.emit("start_broadcast", message);
-    io.emit("start_broadcast");
+    io.emit("start_test_broadcast", communication);
   });
 
-  socket.on("testing_testing", function(socket){
+  socket.on("testing_testing_broadcast", function(socket){
     // This is just here in case we need to send a message, it might work without:
     console.log("App.js reporting in. Server received TEST message from the remote. Broadcasting ...");
     // io.emit("start_broadcast", message);
-    io.emit("testing_testing");
+    io.emit("testing_testing_broadcast");
   });
 
 
@@ -90,22 +106,22 @@ io.on("connection", function (socket) {
     io.emit("end_test_broadcast");
   });
 
-// PAUSE AFTER PERFORMANCE 1:
-  socket.on("pause_1_broadcast", function(socket){
-    console.log("Server received PAUSE1 message from the remote. Broadcasting ...");
-    io.emit("pause_1_broadcast");
+// START PERFORMANCE 1:
+  socket.on("performance_1_broadcast", function(socket){
+    console.log("Server received START P1 message from the remote. Broadcasting ...");
+    io.emit("start_p1_broadcast");
   });
 
-// PAUSE AFTER PERFORMANCE 2:
-  socket.on("pause_2_broadcast", function(socket){
-    console.log("Server received PAUSE2 message from the remote. Broadcasting ...");
-    io.emit("pause_2_broadcast");
+// START PERFORMANCE 2:
+  socket.on("performance_2_broadcast", function(socket){
+    console.log("Server received START_P2 message from the remote. Broadcasting ...");
+    io.emit("start_p2_broadcast");
   });
 
-// PAUSE AFTER PERFORMANCE 3:
-  socket.on("pause_3_broadcast", function(socket){
-    console.log("Server received PAUSE3 message from the remote. Broadcasting ...");
-    io.emit("pause_3_broadcast");
+// START PERFORMANCE 3:
+  socket.on("start_p3_broadcast", function(socket){
+    console.log("Server received START_P3 message from the remote. Broadcasting ...");
+    io.emit("start_p3_broadcast");
   });
 
 // MAKE UI ACTIVE AGAIN AFTER PAUSE:

@@ -7,12 +7,17 @@ router.get('/', function(req, res, next) {
 });
 
 
-router.post('/remote_start', function(req, res) {
-    console.log(req.body);
+router.post('/logButton', function(req, res) {
     var identifier = req.body.ident;
+    var name = req.body.button_name;
+    var value = Date.now();
+    var query = {};
+    query[name] = value;
+    //collection.findOne(query, function (err, item) { ... });
     var db = req.db;
-    var collection = db.get('testcol');
-    collection.update({'ident': identifier}, {$push: {'start_button': Date(), 'start_button_millis': Date.now()}}, function(err, result){
+    var collection = db.get('testcol');    
+    console.log("posted a button log for " + name + "!");
+    collection.update({'ident': identifier}, {$push: query}, function(err, result){
         res.send(
             (err === null) ? { msg: '' } : { msg: err }
         );
