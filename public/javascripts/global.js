@@ -6,12 +6,8 @@ var performanceStatus = '';
 
 var messageContent = 0;
 
-
-
 var width = $(window).width();
 var height = $(window).height();
-
-
 
 // set other global variables
 var setUp = function(){
@@ -36,19 +32,10 @@ var setUp = function(){
                     .css( "font-size", lineHeight*0.15+"px");
 }
 
-
 // DOM Ready =============================================================
 $(document).ready(function() {
 
     setUp();
-
-    // Add User button click
-    // 3. Add behaviours that happen when a button is clicked. When clicked:
-    // a. Slide the group selector up
-    // b. show the study buttons
-    // c. adjust the text size for the study buttons
-
-    // Then, start with the #second div hidden. 
 
     $('#overlay').hide();
     $('#second').hide(); // start with the study buttons hidden
@@ -61,14 +48,6 @@ $(document).ready(function() {
         $('#second').show();    // show the study buttons
     });
 
-    // $('.insertButton2').on('click', function(){
-    //     addUserGroup2(); //addUser the user
-    //     $('#overlay').fadeIn();
-    //     $('#insideOverlay').html('<p>Please wait for the performance to begin. <br />In the meantime you can write your name on your survey book. Your username is:</p> <p class="username">' + ident + '</p>');
-    //     $('#first').hide();     // hide the group buttons
-    //     $('#second').show();    // show the study buttons
-    // });
-
     // Update doc on isgood button click
     $('.isGoodButton').on('click', function(){
         addGood();
@@ -78,12 +57,18 @@ $(document).ready(function() {
     $('.errorButton').on('click', function(){
         addError();
     });
-    
 
+    // RECEIVE MESSAGES 
     socket.on("start_test_broadcast", function(data) {
-        console.log("i am the client and I got a START_TEST_BROADCAST from the server!");
+        console.log("CLIENT got a START_TEST_BROADCAST from the server!");
         $('#overlay').fadeOut();
         performanceStatus = 98; // never seen
+    });
+
+    socket.on("another_start_broadcast", function(data){
+        console.log("CLIENT got a ANOTHER_START_BROADCAST from the server!");
+        $('#overlay').fadeOut();
+        performanceStatus = 1;
     });
 
     socket.on("end_test_broadcast", function(data) {
@@ -91,38 +76,6 @@ $(document).ready(function() {
         $('#overlay').fadeIn();
         performanceStatus = 0; // never seen
     });
-
-
-    socket.on("performance_1_broadcast", function(data) {
-        console.log("I am the client and I got a PERFORMANCE cue from the server! This performance is " + performanceStatus);
-        $('#overlay').fadeOut();
-    });
-    socket.on("performance_2_broadcast", function(data) {
-        console.log("I am the client and I got a PERFORMANCE cue from the server! This performance is " + performanceStatus);
-        $('#overlay').fadeOut();
-    });
-    socket.on("performance_3_broadcast", function(data) {
-        console.log("I am the client and I got a PERFORMANCE cue from the server! This performance is " + performanceStatus);
-        $('#overlay').fadeOut();
-    });
-    socket.on("performance_4_broadcast", function(data) {
-        console.log("I am the client and I got a PERFORMANCE cue from the server! This performance is " + performanceStatus);
-        $('#overlay').fadeOut();
-    });
-    socket.on("performance_5_broadcast", function(data) {
-        console.log("I am the client and I got a PERFORMANCE cue from the server! This performance is " + performanceStatus);
-        $('#overlay').fadeOut();
-    });
-    socket.on("performance_6_broadcast", function(data) {
-        console.log("I am the client and I got a PERFORMANCE cue from the server! This performance is " + performanceStatus);
-        $('#overlay').fadeOut();
-    });
-    socket.on("performance_chimney_broadcast", function(data) {
-        console.log("I am the client and I got a PERFORMANCE cue from the server! This performance is " + performanceStatus);
-        $('#overlay').fadeOut();
-    });
-    
-    
 
     socket.on("beforeunload", function(){
         socket.close();

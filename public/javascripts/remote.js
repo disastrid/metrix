@@ -4,47 +4,30 @@ $(document).ready(function() {
     $('#status').html(systemStatus);
     //Event handling for button clicks
     // START AND END TEST:
-
     
     var serverCommunication = '';
 
-    
-
-
-    function doPing() {
-        if (++counter <=10) {
-            socket.emit(serverCommunication, {'message': 'There has been a start_test received'});
-            console.log(serverCommunication + " message is going ... " + counter);
-        } else {
-            clearInterval(timer);
-            console.log(serverCommunication.name + " pings are done");
-
-        }
-    };
-
-
-
-    
     function doThePing(info) {
         var counter = 0;
+        console.log("REMOTE pinging " + info);
         var timer = setInterval(function() {
-            socket.emit(info, {'message': 'There has been a' + info + 'received'});
+            socket.emit(info);
             if (++counter > 3) {
                 clearInterval(timer);
                 counter = 0;
-                console.log("ping is finished");
+                console.log("REMOTE is done pinging");
             }
         }, 500);
     }
     
-
     $(".remoteButton").on("click", function() {
         // This sends the message:
         // var data = {message: 1};
         // counter = 0;
         serverCommunication = $(this).text().toLowerCase()+'_broadcast';
+        
         doThePing(serverCommunication);
-        // console.log("I am the remote and I sent a START_TEST command!");
+        console.log("REMOTE sent a <" + serverCommunication + "> command!");
         logButton($(this).text());
     });
 
@@ -115,7 +98,7 @@ $(document).ready(function() {
             // If it is, compile all user info into one object
             var ident = 'remote_test';
             var button = buttonName;
-            console.log("remote js posting: " + buttonName);
+            console.log("REMOTE is logging button > " + buttonName);
             var identifyMe = {
                 'ident': ident,
                 'button_name': button
@@ -129,7 +112,7 @@ $(document).ready(function() {
             }).done(function( response ) {
                 // Check for successful (blank) response
                 if (response.msg === '') {
-                    console.log("Successfully logged timestamp for " + button + " button.");
+                    console.log("REMOTE successfully logged timestamp for " + button + " button.");
                 }
                 else {
                     // If something goes wrong, alert the error message that our service returned
@@ -289,7 +272,6 @@ $(document).ready(function() {
                 }
             });
     };
-
 
 
     function logResume() {
