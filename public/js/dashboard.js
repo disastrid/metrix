@@ -43,22 +43,20 @@ function renderStudyList(studyList, type) {
     }
 
     return studyList.map(study => `
-        <div class="study-card" onclick="enterStudy('${study._id}')">
-            <div class="study-info">
-                <div class="study-name">${study.name}</div>
-                <div class="study-meta">
-                    ${type === 'completed' ? 'Completed' : 'Created'} on: ${formatDate(study.createdAt)}
+        <div class="study-row">
+            <div class="study-card" onclick="enterStudy('${study._id}')">
+                <div class="study-info">
+                    <div class="study-name">${study.name}</div>
+                    <div class="study-meta">
+                        ${type === 'completed' ? 'Completed' : 'Created'} on: ${formatDate(study.createdAt)}
+                    </div>
                 </div>
-            </div>
-            <div class="study-actions">
                 <svg class="study-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M5 12h14M12 5l7 7-7 7"/>
                 </svg>
-                <svg class="study-settings" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" onclick="showSettingsModal(event, '${study._id}')">
-                    <line x1="3" y1="6" x2="21" y2="6"/>
-                    <line x1="3" y1="12" x2="21" y2="12"/>
-                    <line x1="3" y1="18" x2="21" y2="18"/>
-                </svg>
+            </div>
+            <div class="study-settings" onclick="showSettingsModal(event, '${study._id}')">
+                <img src="/icons/sliders.svg" alt="Settings">
             </div>
         </div>
     `).join('');
@@ -90,16 +88,12 @@ function showSettingsModal(event, studyId) {
             <div class="settings-header">
                 <div class="settings-header-left">
                     <button class="back-btn" onclick="this.closest('.settings-overlay').remove()">
-                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M19 12H5M12 19l-7-7 7-7"/>
-                        </svg>
+                        <img src="/icons/arrow-left.svg" class="icon" alt="Back">
                     </button>
                     <h2 class="settings-title">Settings</h2>
                 </div>
                 <button class="btn-download" onclick="exportStudyData('${studyId}')">
-                    <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
-                    </svg>
+                    <img src="/icons/download.svg" class="icon icon-sm" alt="Download">
                     Download all data
                 </button>
             </div>
@@ -123,11 +117,7 @@ function showSettingsModal(event, studyId) {
                         <div class="setting-label">
                             <span>Number of groups:</span>
                             <div class="info-icon" data-tooltip="Set how many groups participants can choose from">
-                                <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <circle cx="12" cy="12" r="10"/>
-                                    <path d="M9,9h0a3,3,0,0,1,6,0c0,2-3,3-3,3"/>
-                                    <path d="M12 17h.01"/>
-                                </svg>
+                                <img src="/icons/info.svg" class="icon icon-sm" alt="Info">
                                 <div class="tooltip">Set how many groups participants can choose from</div>
                             </div>
                         </div>
@@ -152,17 +142,13 @@ function showSettingsModal(event, studyId) {
                         <div class="setting-label">
                             <span>Generate random usernames:</span>
                             <div class="info-icon" data-tooltip="This setting will generate a unique username for every participant, using two random nouns. This allows you to align a participant's real-time data with their surveys after the study.">
-                                <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <circle cx="12" cy="12" r="10"/>
-                                    <path d="M9,9h0a3,3,0,0,1,6,0c0,2-3,3-3,3"/>
-                                    <path d="M12 17h.01"/>
-                                </svg>
+                                <img src="/icons/info.svg" class="icon icon-sm" alt="Info">
                                 <div class="tooltip">This setting will generate a unique username for every participant, using two random nouns. This allows you to align a participant's real-time data with their surveys after the study.</div>
                             </div>
                         </div>
                         <div class="setting-control">
                             <div class="custom-checkbox ${study.randomUsernames ? 'checked' : ''}" onclick="toggleCheckbox(this, 'randomUsernames')">
-                                ${study.randomUsernames ? '<svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>' : ''}
+                                ${study.randomUsernames ? '<img src="/icons/check.svg" class="icon icon-sm" alt="Checked">' : ''}
                             </div>
                         </div>
                     </div>
@@ -171,17 +157,13 @@ function showSettingsModal(event, studyId) {
                         <div class="setting-label">
                             <span>Display usernames between segments:</span>
                             <div class="info-icon" data-tooltip="Show participant usernames during breaks between study segments">
-                                <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <circle cx="12" cy="12" r="10"/>
-                                    <path d="M9,9h0a3,3,0,0,1,6,0c0,2-3,3-3,3"/>
-                                    <path d="M12 17h.01"/>
-                                </svg>
+                                <img src="/icons/info.svg" class="icon icon-sm" alt="Info">
                                 <div class="tooltip">Show participant usernames during breaks between study segments</div>
                             </div>
                         </div>
                         <div class="setting-control">
                             <div class="custom-checkbox ${study.showUsernamesBetweenSegments ? 'checked' : ''}" onclick="toggleCheckbox(this, 'showUsernamesBetweenSegments')">
-                                ${study.showUsernamesBetweenSegments ? '<svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>' : ''}
+                                ${study.showUsernamesBetweenSegments ? '<img src="/icons/check.svg" class="icon icon-sm" alt="Checked">' : ''}
                             </div>
                         </div>
                     </div>
@@ -195,11 +177,7 @@ function showSettingsModal(event, studyId) {
                         <div class="setting-label">
                             <span>Number of segments:</span>
                             <div class="info-icon" data-tooltip="Set how many segments your study will have">
-                                <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <circle cx="12" cy="12" r="10"/>
-                                    <path d="M9,9h0a3,3,0,0,1,6,0c0,2-3,3-3,3"/>
-                                    <path d="M12 17h.01"/>
-                                </svg>
+                                <img src="/icons/info.svg" class="icon icon-sm" alt="Info">
                                 <div class="tooltip">Set how many segments your study will have</div>
                             </div>
                         </div>
@@ -227,9 +205,7 @@ function showSettingsModal(event, studyId) {
                 <h3 class="section-header">Delete Study</h3>
                 <p class="delete-warning">This will permanently delete this study and all settings and associated data. You will not be able to undo this action</p>
                 <button class="btn-delete" onclick="deleteStudy('${studyId}')">
-                    <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
-                    </svg>
+                    <img src="/icons/trash.svg" class="icon icon-sm" alt="Delete">
                     Delete study
                 </button>
             </div>
@@ -267,7 +243,7 @@ function toggleCheckbox(element, property) {
         window.currentSettingsData[property] = false;
     } else {
         element.classList.add('checked');
-        element.innerHTML = '<svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>';
+        element.innerHTML = '<img src="/icons/check.svg" class="icon icon-sm" alt="Checked">';
         window.currentSettingsData[property] = true;
     }
 }
