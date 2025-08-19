@@ -1,7 +1,23 @@
-<<<<<<< HEAD
-# Git ignore file - ignore app_oldtestVersion, which is the repo of the former Metrix project where I was trying to write my own NPM module for random word generation before I came to my goddamn senses.
-app_oldTestVersion/
-=======
-npm-debug.log
-node_modules/*
->>>>>>> 763f15c5e8da214744d8f804a5a8c65b901a310c
+# Environment variables (contains passwords!)
+.env
+.env.local
+.env.production
+
+# Node modules
+node_modules/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Build outputs
+dist/
+build/
+public/
