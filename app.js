@@ -64,6 +64,11 @@ app.use('/api/participant', participantApi);
 // Serve Vue.js frontend (built files go in public/)
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Serve participant interface
+app.get('/participant/:code', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/participant.html'));
+});
+
 // Catch-all handler: send back Vue's index.html file for client-side routing
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/index.html'));

@@ -198,8 +198,9 @@ router.post('/:id/start-practice', async (req, res) => {
       { $set: { practiceActive: true, status: 'active' } }
     );
 
+    const study = await req.db.collection('studies').findOne({ _id: new ObjectId(req.params.id) });
     // Emit to all participants in this study
-    req.app.io.to(`study_${req.params.id}`).emit('practice_started');
+    req.app.io.to(`study_${study.code}`).emit('practice_started');
 
     res.json({ success: true, action: 'practice_started' });
   } catch (error) {

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .code-input {
+            font-size: 24px;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            width: 200px;
+            margin: 20px 0;
+        }
+        .btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px;
+        }
+        .btn:hover {
+            background: #0056b3;
+        }
+        .btn-secondary {
+            background: #6c757d;
+        }
+        .btn-secondary:hover {
+            background: #545b62;
+        }
+        .error {
+            color: #dc3545;
+            margin: 10px 0;
+        }
+        .admin-link {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: #6c757d;
+            text-decoration: none;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <a href="/admin" class="admin-link">Admin</a>
+    
+    <div class="container">
+        <h1>Join Study</h1>
+        <p>Enter your 4-digit study code to join:</p>
+        
+        <input type="text" id="studyCode" class="code-input" placeholder="A7K9" maxlength="4">
+        <br>
+        <button onclick="joinStudy()" class="btn">Join Study</button>
+        
+        <div id="error" class="error" style="display: none;"></div>
+        
+        <div id="studyInfo" style="display: none;">
+            <h2 id="studyName"></h2>
+            <p>Select your group:</p>
+            <div id="groupButtons"></div>
+        </div>
+    </div>
+
+    <script>
+        let currentStudy = null;
+
+        async function joinStudy() {
+            const code = document.getElementById('studyCode').value.trim().toUpperCase();
+            const errorDiv = document.getElementById('error');
+            
+            if (!code || code.length !== 4) {
+                showError('Please enter a 4-digit code');
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/participant/join/${code}`);
+                const data = await response.json();
+
+                if (!response.ok) {
+                    showError(data.error || 'Study not found');
+                    return;
+                }
+
+                currentStudy = data;
+                showStudyInfo(data);
+            } catch (error) {
+                showError('Connection error. Please try again.');
+            }
+        }
+
+        function showStudyInfo(study) {
+            document.getElementById('studyName').textContent = study.name;
+            
+            const groupButtons = document.getElementById('groupButtons');
+            groupButtons.innerHTML = '';
+            
+            study.groups.forEach(group => {
+                const button = document.createElement('button');
+                button.textContent = group.name;
+                button.className = 'btn btn-secondary';
+                button.onclick = () => selectGroup(group.id);
+                groupButtons.appendChild(button);
+            });
+
+            document.getElementById('error').style.display = 'none';
+            document.getElementById('studyInfo').style.display = 'block';
+        }
+
+        async function selectGroup(groupId) {
+            const sessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+            
+            try {
+                const response = await fetch(`/api/participant/join/${currentStudy.code}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        groupId: groupId,
+                        sessionId: sessionId
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    // Store session data and redirect to participant interface
+                    localStorage.setItem('studySession', JSON.stringify(data.session));
+                    window.location.href = `/participant/${currentStudy.code}`;
+                } else {
+                    showError(data.error || 'Failed to join group');
+                }
+            } catch (error) {
+                showError('Connection error. Please try again.');
+            }
+        }
+
+        function showError(message) {
+            const errorDiv = document.getElementById('error');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+        }
+
+        // Allow Enter key to submit
+        document.getElementById('studyCode').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                joinStudy();
+            }
+        });
+    </script>
+</body>
+</html>

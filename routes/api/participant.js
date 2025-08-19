@@ -24,7 +24,7 @@ router.get('/join/:code', async (req, res) => {
     }));
 
     // Generate random username if enabled
-    const randomUsername = study.randomUsernames ? randomWords({ exactly: 2, join: '-' }) : null;
+    const randomUsername = null;
 
     res.json({
       id: study._id,
@@ -73,7 +73,7 @@ router.post('/join/:code', async (req, res) => {
       sessionId,
       groupId: groupId.toString(),
       joinedAt: new Date(),
-      randomUsername: study.randomUsernames ? randomWords({ exactly: 2, join: '-' }) : null
+      randomUsername: null
     };
 
     await req.db.collection('sessions').insertOne(session);
@@ -177,7 +177,7 @@ router.get('/random-username/:code', async (req, res) => {
       return res.status(400).json({ error: 'Random usernames not enabled for this study' });
     }
 
-    const randomUsername = randomWords({ exactly: 2, join: '-' });
+    const randomUsername = randomWords(2).join('-');
     res.json({ randomUsername });
   } catch (error) {
     console.error('Error generating random username:', error);
