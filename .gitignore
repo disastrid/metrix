@@ -84,7 +84,8 @@ dist
 
 # Gatsby files
 .cache/
-public
+# Vue build output (but keep our HTML files for now)
+# public
 
 # Vue build output
 dist/
