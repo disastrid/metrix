@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metrix - Study Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/design-system.css">
+</head>
+<body>
+    <div class="dashboard-header">
+        <div class="brand">
+            <div class="brand-logo">M</div>
+            <div class="brand-name">Metrix</div>
+        </div>
+        <div class="header-right">
+            <div class="greeting">Hi Dave!</div>
+            <div class="user-icon">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                    <circle cx="12" cy="7" r="4"/>
+                </svg>
+            </div>
+            <button id="createStudyBtn" class="btn-create">
+                Create study
+                <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 5v14M5 12h14"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <div class="study-section">
+        <h2 class="section-title">Current Studies</h2>
+        <div id="currentStudies">
+            <!-- Current studies will be loaded here -->
+        </div>
+    </div>
+
+    <div class="study-section">
+        <h2 class="section-title">Completed Studies</h2>
+        <div id="completedStudies">
+            <!-- Completed studies will be loaded here -->
+        </div>
+    </div>
+
+    <script src="/js/dashboard.js"></script>
+</body>
+</html>
