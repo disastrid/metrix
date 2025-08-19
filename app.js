@@ -1,176 +1,152 @@
-var express = require('express');
-var app = express();
-var http = require('http');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-// random words
-var randomWords = require('random-words');
+require('dotenv').config();
+const express = require('express');
+const path = require('path');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const helmet = require('helmet');
+const cors = require('cors');
+const { createServer } = require('http');
+const { Server } = require('socket.io');
+
 // Database
-var mongo = require('mongodb');
-var monk = require('monk');
-var db = monk('localhost:27017/test');
+const { MongoClient } = require('mongodb');
 
-// our express routes
-var routes = require('./routes/index');
-var users = require('./routes/users');
-var study = require('./routes/study');
-var remote = require('./routes/remote');
-var analyse = require('./routes/analyse');
+const app = express();
+const server = createServer(app);
 
+// Socket.io setup with CORS
+const io = new Server(server, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"]
+  }
+});
 
+// Security middleware
+app.use(helmet({
+  contentSecurityPolicy: false // Disable CSP for Socket.io compatibility
+}));
+app.use(cors());
 
+// MongoDB connection
+let db;
+const mongoUrl = process.env.MONGODB_URI || 'mongodb://localhost:27017/test';
 
-
-// BEGIN SOCKETS.IO
-var server = http.createServer(app);
-var io = require('socket.io').listen(server);
-
-
- server.listen(8080);
- console.log("server started");
-
-
-// Set up sockets business, with a connection module. Right now it just console logs when a user connects.
-// io.set('origins', '*:*');
-
-
-
-io.on("connection", function (socket) {
-    console.log("aw hell no what up dawg");
-    // var tweet = {user: "nodesource", text: "Hello, world!"};
-
-    // to make things interesting, have it send every second
-    // var interval = setInterval(function () {
-    //     socket.emit("tweet", tweet);
-    // }, 1000);
-
-    socket.on("disconnect", function () {
-        console.log("bye felicia");
-    });
-
-
-// Now, we set up messages for the Start, Pause, Resume and Stop actions from the remote control page.
-// START THE PERFORMANCE:
-  socket.on("start_broadcast", function(socket){
-    // This is just here in case we need to send a message, it might work without:
-    console.log("Server received START message from the remote. Broadcasting ...");
-    // io.emit("start_broadcast", message);
-    io.emit("start_broadcast");
+MongoClient.connect(mongoUrl)
+  .then(client => {
+    console.log('Connected to MongoDB');
+    db = client.db();
+  })
+  .catch(error => {
+    console.error('MongoDB connection error:', error);
+    process.exit(1);
   });
 
-  // END THE PERFORMANCE:
-  socket.on("end_broadcast", function(socket) {
-    console.log("Server received END message from the remote. Broadcasting ...");
-    io.emit("end_broadcast");
-  });
+// Make db accessible to routes
+app.use((req, res, next) => {
+  req.db = db;
+  next();
+});
 
-  // START THE TEST:
-  socket.on("start_test_broadcast", function(socket){
-    // This is just here in case we need to send a message, it might work without:
-    console.log("Server received START_TEST message from the remote. Broadcasting ...");
-    // io.emit("start_broadcast", message);
-    io.emit("start_test_broadcast");
-  });
-
-// END THE TEST:
-  socket.on("end_test_broadcast", function(socket){
-    // This is just here in case we need to send a message, it might work without:
-    console.log("Server received END_TEST message from the remote. Broadcasting ...");
-    // io.emit("start_broadcast", message);
-    io.emit("end_test_broadcast");
-  });
-
-// PAUSE AFTER PERFORMANCE 1:
-  socket.on("pause_1_broadcast", function(socket){
-    console.log("Server received PAUSE1 message from the remote. Broadcasting ...");
-    io.emit("pause_1_broadcast");
-  });
-
-// PAUSE AFTER PERFORMANCE 2:
-  socket.on("pause_2_broadcast", function(socket){
-    console.log("Server received PAUSE2 message from the remote. Broadcasting ...");
-    io.emit("pause_2_broadcast");
-  });
-
-// PAUSE AFTER PERFORMANCE 3:
-  socket.on("pause_3_broadcast", function(socket){
-    console.log("Server received PAUSE3 message from the remote. Broadcasting ...");
-    io.emit("pause_3_broadcast");
-  });
-
-// MAKE UI ACTIVE AGAIN AFTER PAUSE:
-  socket.on("resume_broadcast", function(socket) {
-    console.log("Server received RESUME message from the remote. Broadcasting ...");
-    io.emit("resume_broadcast");
-  });
-
-
-
-
-}); // end socket broadcasting
-
-// listening on port 3000:
-// app.listen(8080);
-
-
-// END SOCKETS.IO
-
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
-
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+// Middleware
 app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+// API Routes
+const studiesApi = require('./routes/api/studies');
+const participantApi = require('./routes/api/participant');
+
+app.use('/api/studies', studiesApi);
+app.use('/api/participant', participantApi);
+
+// Serve Vue.js frontend (built files go in public/)
 app.use(express.static(path.join(__dirname, 'public')));
 
-
-// Make our db accessible to our router
-app.use(function(req,res,next){
-    req.db = db;
-    next();
+// Catch-all handler: send back Vue's index.html file for client-side routing
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/index.html'));
 });
 
-app.use('/', routes);
-app.use('/users', users);
-app.use('/study', study);
-app.use('/remote', remote);
-app.use('/analyse', analyse);
+// Socket.io connection handling
+io.on('connection', (socket) => {
+  console.log('User connected:', socket.id);
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
-
-// error handlers
-
-// development error handler
-// will print stacktrace
-if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-      message: err.message,
-      error: err
-    });
+  // Join a specific study room (by study code)
+  socket.on('join_study', (studyCode) => {
+    socket.join(`study_${studyCode}`);
+    console.log(`Socket ${socket.id} joined study ${studyCode}`);
   });
-}
 
-// production error handler
-// no stacktraces leaked to user
-app.use(function(err, req, res, next) {
+  // Leave a study room
+  socket.on('leave_study', (studyCode) => {
+    socket.leave(`study_${studyCode}`);
+    console.log(`Socket ${socket.id} left study ${studyCode}`);
+  });
+
+  // Study control events (from control panel)
+  socket.on('start_practice', (studyCode) => {
+    console.log(`Starting practice for study ${studyCode}`);
+    io.to(`study_${studyCode}`).emit('practice_started');
+  });
+
+  socket.on('stop_practice', (studyCode) => {
+    console.log(`Stopping practice for study ${studyCode}`);
+    io.to(`study_${studyCode}`).emit('practice_stopped');
+  });
+
+  socket.on('start_segment', ({ studyCode, segmentId }) => {
+    console.log(`Starting segment ${segmentId} for study ${studyCode}`);
+    io.to(`study_${studyCode}`).emit('segment_started', { segmentId });
+  });
+
+  socket.on('stop_segment', ({ studyCode, segmentId }) => {
+    console.log(`Stopping segment ${segmentId} for study ${studyCode}`);
+    io.to(`study_${studyCode}`).emit('segment_stopped', { segmentId });
+  });
+
+  // Show random usernames
+  socket.on('show_usernames', (studyCode) => {
+    console.log(`Showing random usernames for study ${studyCode}`);
+    io.to(`study_${studyCode}`).emit('show_usernames');
+  });
+
+  socket.on('hide_usernames', (studyCode) => {
+    console.log(`Hiding usernames for study ${studyCode}`);
+    io.to(`study_${studyCode}`).emit('hide_usernames');
+  });
+
+  socket.on('disconnect', () => {
+    console.log('User disconnected:', socket.id);
+  });
+});
+
+// Store io instance for use in routes
+app.io = io;
+
+// Attach server to app for bin/www
+app.server = server;
+
+// 404 handler for API routes only
+app.use('/api/*', (req, res) => {
+  res.status(404).json({ error: 'API endpoint not found' });
+});
+
+// Error handler
+app.use((err, req, res, next) => {
+  console.error(err.stack);
   res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error: {}
-  });
+  
+  // API error response
+  if (req.path.startsWith('/api/')) {
+    res.json({
+      error: app.get('env') === 'development' ? err.message : 'Internal server error'
+    });
+  } else {
+    // For non-API routes, serve the Vue app
+    res.sendFile(path.join(__dirname, 'public/index.html'));
+  }
 });
 
 module.exports = app;
