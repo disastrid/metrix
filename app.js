@@ -57,9 +57,11 @@ app.use(cookieParser());
 // API Routes
 const studiesApi = require('./routes/api/studies');
 const participantApi = require('./routes/api/participant');
+const authApi = require('./routes/api/auth');
 
 app.use('/api/studies', studiesApi);
 app.use('/api/participant', participantApi);
+app.use('/api/auth', authApi);
 
 // Serve Vue.js frontend (built files go in public/)
 app.use(express.static(path.join(__dirname, 'public')));
@@ -67,6 +69,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Serve participant interface
 app.get('/participant/:code', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/participant.html'));
+});
+
+// Serve admin login
+app.get('/admin', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/admin.html'));
+});
+
+// Serve admin dashboard
+app.get('/admin/dashboard', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/admin-dashboard.html'));
 });
 
 // Catch-all handler: send back Vue's index.html file for client-side routing
