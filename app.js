@@ -78,7 +78,7 @@ app.get('/admin', (req, res) => {
 
 // Serve admin dashboard
 app.get('/admin/dashboard', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public/admin-dashboard.html'));
+  res.sendFile(path.join(__dirname, 'public/admin-dashboard-new.html'));
 });
 
 // Catch-all handler: send back Vue's index.html file for client-side routing

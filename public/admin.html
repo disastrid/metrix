@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/design-system.css">
+    <style>
+        body {
+          min-height: 100vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .login-container {
+          width: 100%;
+          max-width: 400px;
+          margin: var(--space-8);
+        }
+
+        .header {
+          text-align: center;
+          margin-bottom: var(--space-12);
+        }
+
+        .header h1 {
+          font-size: var(--font-size-2xl);
+          font-weight: var(--font-weight-bold);
+          color: var(--color-grey-800);
+          margin: 0 0 var(--space-3) 0;
+        }
+
+        .header p {
+          color: var(--color-grey-600);
+          margin: 0;
+          font-size: var(--font-size-md);
+        }
+
+        .back-link {
+          position: absolute;
+          top: var(--space-8);
+          left: var(--space-8);
+          color: var(--color-grey-600);
+          text-decoration: none;
+          font-size: var(--font-size-base);
+          font-weight: var(--font-weight-medium);
+          display: flex;
+          align-items: center;
+          gap: var(--space-2);
+        }
+
+        .back-link:hover {
+          color: var(--color-primary-300);
+        }
+
+        @media (max-width: 768px) {
+          .login-container {
+            margin: var(--space-5);
+          }
+          
+          .back-link {
+            top: var(--space-5);
+            left: var(--space-5);
+          }
+        }
+    </style>
+</head>
+<body>
+    <a href="/" class="back-link">
+        <span>←</span>
+        <span>Back to participant interface</span>
+    </a>
+    
+    <div class="login-container card">
+        <div class="header">
+            <h1>Study Admin</h1>
+            <p>Enter the admin password to manage studies</p>
+        </div>
+        
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" id="password" class="form-input" required>
+            </div>
+            
+            <div id="error" class="status status-warning" style="display: none;"></div>
+            
+            <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const password = document.getElementById('password').value;
+            const errorDiv = document.getElementById('error');
+            
+            try {
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    // Store token and redirect to dashboard
+                    localStorage.setItem('adminToken', data.token);
+                    window.location.href = '/admin/dashboard';
+                } else {
+                    showError(data.error || 'Login failed');
+                }
+            } catch (error) {
+                showError('Connection error. Please try again.');
+            }
+        });
+
+        function showError(message) {
+            const errorDiv = document.getElementById('error');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+        }
+
+        // Check if already logged in
+        // const token = localStorage.getItem('adminToken');
+        // if (token) {
+        //     // Verify token is still valid
+        //     fetch('/api/auth/verify', {
+        //         headers: {
+        //             'Authorization': `Bearer ${token}`
+        //         }
+        //     }).then(response => {
+        //         if (response.ok) {
+        //             window.location.href = '/admin/dashboard';
+        //         }
+        //     });
+        // }
+    </script>
+</body>
+</html>
