@@ -51,9 +51,7 @@ function renderStudyList(studyList, type) {
                         ${type === 'completed' ? 'Completed' : 'Created'} on: ${formatDate(study.createdAt)}
                     </div>
                 </div>
-                <svg class="study-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M5 12h14M12 5l7 7-7 7"/>
-                </svg>
+                <img src="/icons/arrow-right.svg" class="study-arrow" alt="Enter study">
             </div>
             <div class="study-settings" onclick="showSettingsModal(event, '${study._id}')">
                 <img src="/icons/sliders.svg" alt="Settings">
@@ -77,6 +75,10 @@ function enterStudy(studyId) {
 
 function showSettingsModal(event, studyId) {
     event.stopPropagation(); // Prevent card click
+    
+    // Add active state to the clicked settings button
+    const settingsButton = event.currentTarget;
+    settingsButton.classList.add('active');
     
     const study = studies.find(s => s._id === studyId);
     if (!study) return;
@@ -213,6 +215,18 @@ function showSettingsModal(event, studyId) {
     `;
     
     document.body.appendChild(overlay);
+    
+    // Remove active state when modal is closed
+    overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) {
+            settingsButton.classList.remove('active');
+        }
+    });
+    
+    // Also remove active state when back button is clicked
+    overlay.querySelector('.back-btn').addEventListener('click', () => {
+        settingsButton.classList.remove('active');
+    });
     
     // Store current study ID for the control functions
     window.currentSettingsStudyId = studyId;
