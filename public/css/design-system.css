@@ -151,7 +151,7 @@ body {
   border-radius: var(--radius-md);
   font-family: var(--font-family);
   font-size: var(--font-size-md);
-  font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-bold);
   text-decoration: none;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -159,38 +159,55 @@ body {
   border: 2px solid transparent;
 }
 
+/* Button icons */
+.btn .icon {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn .icon svg {
+  width: 15px;
+  height: auto;
+}
+
 /* Type 01 Buttons - Filled with 300 color, border 300 color */
 .btn-primary {
   background-color: var(--color-primary-300);
   border-color: var(--color-primary-300);
-  color: var(--color-primary-400);
+  color: var(--color-white);
 }
 
 .btn-primary:hover {
   background-color: var(--color-primary-200);
   border-color: var(--color-primary-300);
+  color: var(--color-primary-400);
 }
 
 .btn-secondary {
   background-color: var(--color-secondary-300);
   border-color: var(--color-secondary-300);
-  color: var(--color-secondary-400);
+  color: var(--color-white);
 }
 
 .btn-secondary:hover {
   background-color: var(--color-secondary-200);
   border-color: var(--color-secondary-300);
+  color: var(--color-secondary-400);
 }
 
 .btn-success {
   background-color: var(--color-success-300);
   border-color: var(--color-success-300);
-  color: var(--color-success-400);
+  color: var(--color-white);
 }
 
 .btn-success:hover {
   background-color: var(--color-success-200);
   border-color: var(--color-success-300);
+  color: var(--color-success-400);
 }
 
 .btn-warning {
@@ -202,6 +219,7 @@ body {
 .btn-warning:hover {
   background-color: var(--color-warning-200);
   border-color: var(--color-warning-300);
+  color: var(--color-white);
 }
 
 /* Type 02 Buttons - Outline with transparent fill, 300 border */
@@ -292,7 +310,7 @@ body {
   width: 100%;
   padding: var(--space-5);
   border: 2px solid var(--color-grey-200);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-md);
   font-family: var(--font-family);
   font-size: var(--font-size-base);
   background-color: var(--color-white);
@@ -311,7 +329,7 @@ body {
 /* Status/Alert Classes */
 .status {
   padding: var(--space-5);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-md);
   font-weight: var(--font-weight-medium);
   margin: var(--space-5) 0;
 }
