@@ -148,7 +148,7 @@ body {
   align-items: center;
   justify-content: center;
   padding: var(--space-5) var(--space-9);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-md);
   font-family: var(--font-family);
   font-size: var(--font-size-md);
   font-weight: var(--font-weight-semibold);
