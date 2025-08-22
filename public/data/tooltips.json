@@ -2,5 +2,18 @@
   "numberOfGroups": "Participants will be randomly divided into this many groups",
   "randomUsernames": "Automatically assign random usernames to participants for anonymity",
   "displayUsernames": "Show participant usernames during breaks between study segments",
-  "numberOfSegments": "How many segments will this study be divided into"
+  "numberOfSegments": "How many segments will this study be divided into",
+  "deleteWarning": "This will permanently delete this study and all settings and associated data. You will not be able to undo this action",
+  "deleteConfirmation": "Are you sure you want to delete this study? This action cannot be undone.",
+  "messages": {
+    "createStudyPrompt": "Enter study name:",
+    "failedToLoadStudies": "Failed to load studies",
+    "failedToLoadStudiesSubtext": "Please try refreshing the page",
+    "failedToDeleteStudy": "Failed to delete study",
+    "failedToCreateStudy": "Failed to create study",
+    "noCurrentStudies": "No current studies",
+    "noCurrentStudiesSubtext": "Create your first study to get started",
+    "noCompletedStudies": "No completed studies",
+    "noCompletedStudiesSubtext": "No completed studies yet"
+  }
 }
