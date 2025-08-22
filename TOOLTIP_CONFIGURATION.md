@@ -77,10 +77,10 @@ Special messages for delete operations:
 
 ## Benefits
 
-✅ **No code changes needed** - Edit text without touching JavaScript files
-✅ **Centralized management** - All text in one place
-✅ **Easy maintenance** - Quick to find and update any user-facing text
-✅ **Consistent messaging** - Ensures uniform language across the application
+✅ **No code changes needed** - Edit text without touching JavaScript files  
+✅ **Centralized management** - All text in one place  
+✅ **Easy maintenance** - Quick to find and update any user-facing text  
+✅ **Consistent messaging** - Ensures uniform language across the application  
 ✅ **Translation ready** - Structure supports future internationalization
 
 ## Technical Implementation
@@ -92,3 +92,14 @@ The system works by:
 4. Dynamic insertion into HTML when modals are created
 
 This ensures all text is loaded before any UI elements that reference it are created.
+
+## Default Study Settings
+
+When creating a new study, the following default values are applied:
+
+- **Number of groups**: 1
+- **Generate random usernames**: ✅ Checked (enabled)
+- **Display usernames between segments**: ✅ Checked (enabled)  
+- **Number of segments**: 3
+
+These defaults can be modified by updating the `createStudy()` function in `/public/js/dashboard.js`.

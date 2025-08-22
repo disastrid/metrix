@@ -502,7 +502,8 @@ body {
 
 .settings-back {
   position: static;
-  margin-bottom: 12px;
+  margin-bottom: 0;
+  padding-bottom: 36px;
 }
 
 .settings-title {

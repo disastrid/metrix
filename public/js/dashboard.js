@@ -181,7 +181,7 @@ function showSettingsModal(event, studyId) {
                         '<button class="control-btn-new" onclick="changeGroupCount(-1)">' +
                             '<img src="/icons/minus.svg" alt="Minus">' +
                         '</button>' +
-                        '<span class="control-value-new" id="groupCount">' + (study.groupCount || 2) + '</span>' +
+                        '<span class="control-value-new" id="groupCount">' + (study.groupCount || 1) + '</span>' +
                         '<button class="control-btn-new" onclick="changeGroupCount(1)">' +
                             '<img src="/icons/plus.svg" alt="Plus">' +
                         '</button>' +
@@ -207,8 +207,8 @@ function showSettingsModal(event, studyId) {
             '<div class="setting-row-new">' +
                 '<div class="setting-label-new">Display usernames between segments:</div>' +
                 '<div class="setting-control-new">' +
-                    '<div class="custom-checkbox ' + (study.showUsernamesBetweenSegments ? 'checked' : '') + '" onclick="toggleCheckbox(this, \'showUsernamesBetweenSegments\')">' +
-                        (study.showUsernamesBetweenSegments ? '<img src="/icons/check.svg" class="icon icon-sm" alt="Checked">' : '') +
+                    '<div class="custom-checkbox ' + (study.showUsernamesBetweenSegments !== false ? 'checked' : '') + '" onclick="toggleCheckbox(this, \'showUsernamesBetweenSegments\')">' +
+                        (study.showUsernamesBetweenSegments !== false ? '<img src="/icons/check.svg" class="icon icon-sm" alt="Checked">' : '') +
                     '</div>' +
                 '</div>' +
                 '<div class="info-icon-new">' +
@@ -238,19 +238,31 @@ function showSettingsModal(event, studyId) {
                 '</div>' +
             '</div>' +
         '</div>' +
-        '<div style="margin-top: var(--space-12); padding-top: var(--space-9);">' +
+        '<div>' +
             '<h3 style="font-size: var(--font-size-lg); font-weight: var(--font-weight-semibold); color: var(--color-grey-800); margin-bottom: var(--space-5);">Delete Study</h3>' +
             '<p class="delete-warning">' + tooltips.deleteWarning + '</p>' +
-            '<button class="btn btn-warning" onclick="deleteStudy(\'' + studyId + '\')">' +
-                'Delete study' +
-                '<svg class="icon" viewBox="0 0 16 16" fill="none">' +
-                    '<path d="M6 2.00016C6 1.63197 6.29848 1.3335 6.66667 1.3335H9.33333C9.70152 1.3335 10 1.63197 10 2.00016V2.66683H13.3333C13.7015 2.66683 14 2.96531 14 3.3335C14 3.70169 13.7015 4.00016 13.3333 4.00016H2.66667C2.29848 4.00016 2 3.70169 2 3.3335C2 2.96531 2.29848 2.66683 2.66667 2.66683H6V2.00016Z" fill="currentColor"/>' +
-                    '<path d="M4 5.3335C4.36819 5.3335 4.66667 5.63197 4.66667 6.00016V12.6668C4.66667 13.035 4.96514 13.3335 5.33333 13.3335H10.6667C11.0349 13.3335 11.3333 13.035 11.3333 12.6668V6.00016C11.3333 5.63197 11.6318 5.3335 12 5.3335C12.3682 5.3335 12.6667 5.63197 12.6667 6.00016V12.6668C12.6667 13.7714 11.7712 14.6668 10.6667 14.6668H5.33333C4.22876 14.6668 3.33333 13.7714 3.33333 12.6668V6.00016C3.33333 5.63197 3.63181 5.3335 4 5.3335Z" fill="currentColor"/>' +
-                    '<path d="M6 7.3335C6 6.96531 6.29848 6.66683 6.66667 6.66683C7.03486 6.66683 7.33333 6.96531 7.33333 7.3335V11.3335C7.33333 11.7017 7.03486 12.0002 6.66667 12.0002C6.29848 12.0002 6 11.7017 6 11.3335V7.3335Z" fill="currentColor"/>' +
-                    '<path d="M9.33333 6.66683C8.96514 6.66683 8.66667 6.96531 8.66667 7.3335V11.3335C8.66667 11.7017 8.96514 12.0002 9.33333 12.0002C9.70152 12.0002 10 11.7017 10 11.3335V7.3335C10 6.96531 9.70152 6.66683 9.33333 6.66683Z" fill="currentColor"/>' +
-                '</svg>' +
-            '</button>' +
-            '</button>' +
+            '<div id="deleteButtonContainer">' +
+                '<button class="btn btn-warning" onclick="showDeleteConfirmation(\'' + studyId + '\')">' +
+                    'Delete study' +
+                    '<svg class="icon" viewBox="0 0 16 16" fill="none">' +
+                        '<path d="M6 2.00016C6 1.63197 6.29848 1.3335 6.66667 1.3335H9.33333C9.70152 1.3335 10 1.63197 10 2.00016V2.66683H13.3333C13.7015 2.66683 14 2.96531 14 3.3335C14 3.70169 13.7015 4.00016 13.3333 4.00016H2.66667C2.29848 4.00016 2 3.70169 2 3.3335C2 2.96531 2.29848 2.66683 2.66667 2.66683H6V2.00016Z" fill="currentColor"/>' +
+                        '<path d="M4 5.3335C4.36819 5.3335 4.66667 5.63197 4.66667 6.00016V12.6668C4.66667 13.035 4.96514 13.3335 5.33333 13.3335H10.6667C11.0349 13.3335 11.3333 13.035 11.3333 12.6668V6.00016C11.3333 5.63197 11.6318 5.3335 12 5.3335C12.3682 5.3335 12.6667 5.63197 12.6667 6.00016V12.6668C12.6667 13.7714 11.7712 14.6668 10.6667 14.6668H5.33333C4.22876 14.6668 3.33333 13.7714 3.33333 12.6668V6.00016C3.33333 5.63197 3.63181 5.3335 4 5.3335Z" fill="currentColor"/>' +
+                        '<path d="M6 7.3335C6 6.96531 6.29848 6.66683 6.66667 6.66683C7.03486 6.66683 7.33333 6.96531 7.33333 7.3335V11.3335C7.33333 11.7017 7.03486 12.0002 6.66667 12.0002C6.29848 12.0002 6 11.7017 6 11.3335V7.3335Z" fill="currentColor"/>' +
+                        '<path d="M9.33333 6.66683C8.96514 6.66683 8.66667 6.96531 8.66667 7.3335V11.3335C8.66667 11.7017 8.96514 12.0002 9.33333 12.0002C9.70152 12.0002 10 11.7017 10 11.3335V7.3335C10 6.96531 9.70152 6.66683 9.33333 6.66683Z" fill="currentColor"/>' +
+                    '</svg>' +
+                '</button>' +
+            '</div>' +
+            '<div id="deleteConfirmationContainer" style="display: none;">' +
+                '<p style="font-size: var(--font-size-base); color: var(--color-grey-700); margin-bottom: var(--space-4); font-weight: var(--font-weight-medium);">Are you sure?</p>' +
+                '<div style="display: flex; gap: var(--space-3);">' +
+                    '<button class="btn btn-warning" onclick="confirmDeleteStudy(\'' + studyId + '\')">' +
+                        'Yes, delete study' +
+                    '</button>' +
+                    '<button class="btn btn-secondary-outline" onclick="cancelDeleteConfirmation()">' +
+                        'Cancel' +
+                    '</button>' +
+                '</div>' +
+            '</div>' +
         '</div>';
     
     overlay.appendChild(modal);
@@ -419,11 +431,29 @@ async function saveSettingsChanges() {
     }
 }
 
-async function deleteStudy(studyId) {
-    if (!confirm(tooltips.deleteConfirmation)) {
-        return;
-    }
+function showDeleteConfirmation(studyId) {
+    const deleteButtonContainer = document.getElementById('deleteButtonContainer');
+    const deleteConfirmationContainer = document.getElementById('deleteConfirmationContainer');
     
+    deleteButtonContainer.style.display = 'none';
+    deleteConfirmationContainer.style.display = 'block';
+    
+    // Store the study ID for later use
+    window.pendingDeleteStudyId = studyId;
+}
+
+function cancelDeleteConfirmation() {
+    const deleteButtonContainer = document.getElementById('deleteButtonContainer');
+    const deleteConfirmationContainer = document.getElementById('deleteConfirmationContainer');
+    
+    deleteButtonContainer.style.display = 'block';
+    deleteConfirmationContainer.style.display = 'none';
+    
+    // Clear the pending delete
+    window.pendingDeleteStudyId = null;
+}
+
+async function confirmDeleteStudy(studyId) {
     try {
         const response = await fetch('/api/studies/' + studyId, { method: 'DELETE' });
         if (response.ok) {
@@ -451,10 +481,10 @@ function showCreateStudyModal() {
 async function createStudy(name) {
     const data = {
         name: name,
-        groupCount: 2,
+        groupCount: 1,
         segmentCount: 3,
         randomUsernames: true,
-        showUsernamesBetweenSegments: false
+        showUsernamesBetweenSegments: true
     };
     
     try {
