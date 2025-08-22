@@ -647,11 +647,12 @@ body {
 
 .setting-label,
 .setting-label-new {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  width: 150px;
+  min-width: 150px;
+  max-width: 150px;
   font-size: 14px;
   color: #3E3C4A;
+  flex-shrink: 0;
 }
 
 .setting-label-new {
@@ -662,7 +663,10 @@ body {
 .setting-control-new {
   display: flex;
   align-items: center;
+  justify-content: flex-start;
   gap: 8px;
+  margin-left: 24px;
+  flex: 1;
 }
 
 .number-control,
@@ -673,9 +677,19 @@ body {
 }
 
 .number-control-new {
-  background: #E2E2E5;
+  background: transparent;
   border-radius: 8px;
-  padding: 6px;
+  padding: 0;
+  margin-left: 0;
+  width: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Force checkbox alignment */
+.custom-checkbox {
+  margin-left: 0 !important;
 }
 
 .control-btn,
@@ -710,13 +724,37 @@ body {
 }
 
 .control-btn-new {
-  width: 24px;
-  height: 24px;
-  border-radius: 4px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50% !important;
+  border: none;
+  background: #E2E2E5;
+  color: #285A6E;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  min-width: 20px;
+  box-sizing: border-box;
 }
 .control-btn-new:hover {
-  background: #F9FAFB;
-  border-color: #A9A8B1;
+  background: #A9E6FF !important;
+  color: #285A6E;
+}
+.control-btn-new:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.control-btn-new img {
+  width: 10px;
+  height: 10px;
+  filter: invert(17%) sepia(32%) saturate(1463%) hue-rotate(167deg) brightness(94%) contrast(89%);
+}
+.control-btn-new:hover img {
+  filter: invert(17%) sepia(32%) saturate(1463%) hue-rotate(167deg) brightness(94%) contrast(89%);
 }
 
 .control-value,
@@ -730,6 +768,9 @@ body {
 
 .control-value-new {
   font-weight: 400;
+  font-size: 16px;
+  width: 30px;
+  flex-shrink: 0;
 }
 
 .info-icon,
@@ -750,7 +791,12 @@ body {
 .info-icon-new img {
   width: 100%;
   height: 100%;
-  filter: invert(0.5);
+  filter: invert(67%) sepia(80%) saturate(2842%) hue-rotate(167deg) brightness(102%) contrast(101%);
+}
+.info-icon:hover img, .info-icon.active img,
+.info-icon-new:hover img,
+.info-icon-new.active img {
+  filter: invert(42%) sepia(93%) saturate(1352%) hue-rotate(11deg) brightness(119%) contrast(119%);
 }
 
 .info-icon-new {
