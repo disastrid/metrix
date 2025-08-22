@@ -65,6 +65,13 @@ app.use('/api/auth', authApi);
 
 // Serve Vue.js frontend (built files go in public/)
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/js', express.static(path.join(__dirname, 'public/js'), {
+  setHeaders: (res, path) => {
+    if (path.endsWith('.js')) {
+      res.setHeader('Content-Type', 'application/javascript');
+    }
+  }
+}));
 
 // Serve participant interface
 app.get('/participant/:code', (req, res) => {

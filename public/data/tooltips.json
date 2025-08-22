@@ -1,0 +1,6 @@
+{
+  "numberOfGroups": "Participants will be randomly divided into this many groups",
+  "randomUsernames": "Automatically assign random usernames to participants for anonymity",
+  "displayUsernames": "Show participant usernames during breaks between study segments",
+  "numberOfSegments": "How many segments will this study be divided into"
+}
