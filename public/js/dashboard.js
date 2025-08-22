@@ -10,11 +10,52 @@ async function loadTooltips() {
     }
 }
 
+function positionTooltip(icon, tooltip) {
+    const iconRect = icon.getBoundingClientRect();
+    const tooltipRect = tooltip.getBoundingClientRect();
+    
+    // Position to the right of the icon
+    let left = iconRect.right + 12;
+    let top = iconRect.top + (iconRect.height / 2) - (tooltipRect.height / 2);
+    
+    // Ensure tooltip doesn't go off screen
+    const maxLeft = window.innerWidth - tooltipRect.width - 20;
+    const maxTop = window.innerHeight - tooltipRect.height - 20;
+    
+    if (left > maxLeft) {
+        // Position to the left if no room on right
+        left = iconRect.left - tooltipRect.width - 12;
+    }
+    
+    if (top < 20) {
+        top = 20;
+    } else if (top > maxTop) {
+        top = maxTop;
+    }
+    
+    tooltip.style.left = left + 'px';
+    tooltip.style.top = top + 'px';
+}
+
+function setupTooltips() {
+    const infoIcons = document.querySelectorAll('.info-icon, .info-icon-new');
+    
+    infoIcons.forEach(icon => {
+        const tooltip = icon.querySelector('.tooltip');
+        if (tooltip) {
+            icon.addEventListener('mouseenter', () => {
+                positionTooltip(icon, tooltip);
+            });
+        }
+    });
+}
+
 
 document.addEventListener('DOMContentLoaded', async () => {
     await loadTooltips();
     loadStudies();
     setupEventListeners();
+    setupTooltips();
 });
 
 function setupEventListeners() {
@@ -208,6 +249,9 @@ function showSettingsModal(event, studyId) {
     
     overlay.appendChild(modal);
     document.body.appendChild(overlay);
+    
+    // Setup tooltips for the modal content
+    setupTooltips();
     
     window.currentSettingsStudyId = studyId;
     window.currentSettingsData = Object.assign({}, study);
