@@ -1,6 +1,7 @@
 /* Design System - CSS Custom Properties */
 :root {
   /* Colors - Primary */
+  --color-primary-50: #F0F9FF;
   --color-primary-100: #D4F2FF;
   --color-primary-200: #A9E6FF;
   --color-primary-300: #66D2FF;
@@ -25,6 +26,7 @@
   --color-warning-400: #650B27;
 
   /* Colors - Greyscale */
+  --color-grey-50: #F9FAFB;
   --color-grey-100: #E2E2E5;
   --color-grey-200: #C5C5CB;
   --color-grey-300: #A9A8B1;
@@ -723,8 +725,85 @@ body {
   color: var(--color-primary-400);
 }
 
-/* Setting Row */
-.setting-row {
+/* Settings Modal - JavaScript Generated Classes */
+.settings-back {
+  position: absolute;
+  top: var(--space-9);
+  left: var(--space-9);
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  color: var(--color-grey-600);
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  transition: all 0.2s ease;
+}
+
+.settings-back:hover {
+  color: var(--color-grey-800);
+  background: var(--color-grey-100);
+}
+
+.settings-back svg {
+  width: 20px;
+  height: 20px;
+}
+
+.settings-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-9) var(--space-9) var(--space-7) 60px; /* Left padding accounts for back button */
+  border-bottom: 1px solid var(--color-grey-200);
+}
+
+.study-name-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+  padding: var(--space-7) var(--space-9);
+  border-bottom: 1px solid var(--color-grey-100);
+}
+
+.study-name-label {
+  font-size: var(--font-size-base);
+  color: var(--color-grey-700);
+  font-weight: var(--font-weight-medium);
+  min-width: 100px;
+}
+
+.study-name-value {
+  flex: 1;
+  font-size: var(--font-size-base);
+  color: var(--color-grey-800);
+  padding: var(--space-2);
+}
+
+.edit-icon, .check-icon {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  padding: var(--space-1);
+  border-radius: var(--radius-sm);
+  transition: background 0.2s ease;
+}
+
+.edit-icon:hover, .check-icon:hover {
+  background: var(--color-grey-100);
+}
+
+.edit-icon img, .check-icon img {
+  width: 100%;
+  height: 100%;
+  filter: invert(0.4);
+}
+
+/* Setting Row - New Layout */
+.setting-row-new {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -732,61 +811,79 @@ body {
   border-bottom: 1px solid var(--color-grey-100);
 }
 
-.setting-row:last-child {
+.setting-row-new:last-child {
   border-bottom: none;
 }
 
-.setting-label {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
+.setting-label-new {
   font-size: var(--font-size-base);
   color: var(--color-grey-700);
+  font-weight: var(--font-weight-medium);
 }
 
-.setting-control {
+.setting-control-new {
   display: flex;
   align-items: center;
   gap: var(--space-3);
 }
 
-/* Number Controls */
-.number-control {
+.number-control-new {
   display: flex;
   align-items: center;
   gap: var(--space-3);
+  background: var(--color-grey-100);
+  border-radius: var(--radius-md);
+  padding: var(--space-2);
 }
 
-.control-btn {
-  width: 32px;
-  height: 32px;
-  border: 1px solid var(--color-grey-300);
+.control-btn-new {
+  width: 24px;
+  height: 24px;
   background: var(--color-white);
-  border-radius: 50%;
+  border: 1px solid var(--color-grey-200);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
   transition: all 0.2s ease;
-  color: var(--color-grey-600);
 }
 
-.control-btn:hover {
-  border-color: var(--color-primary-300);
-  color: var(--color-primary-300);
+.control-btn-new:hover {
+  background: var(--color-grey-50);
+  border-color: var(--color-grey-300);
 }
 
-.control-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+.control-btn-new img {
+  width: 12px;
+  height: 12px;
+  filter: invert(0.4);
 }
 
-.control-value {
+.control-value-new {
   font-size: var(--font-size-base);
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-semibold);
   color: var(--color-grey-800);
   min-width: 20px;
   text-align: center;
+}
+
+.info-icon-new {
+  width: 16px;
+  height: 16px;
+  cursor: help;
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+}
+
+.info-icon-new:hover {
+  opacity: 1;
+}
+
+.info-icon-new img {
+  width: 100%;
+  height: 100%;
+  filter: invert(0.5);
 }
 
 /* Custom Checkbox */
@@ -795,112 +892,67 @@ body {
   height: 20px;
   border: 2px solid var(--color-grey-300);
   border-radius: var(--radius-sm);
+  background: var(--color-white);
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
   transition: all 0.2s ease;
-  background: var(--color-white);
+}
+
+.custom-checkbox:hover {
+  border-color: var(--color-primary-300);
+  background: var(--color-primary-50);
 }
 
 .custom-checkbox.checked {
   background: var(--color-primary-300);
   border-color: var(--color-primary-300);
-  color: var(--color-white);
 }
 
-.custom-checkbox:hover {
-  border-color: var(--color-primary-300);
+.custom-checkbox.checked img {
+  filter: brightness(0) invert(1);
 }
 
-/* Info Icon & Tooltip */
-.info-icon {
-  width: 16px;
-  height: 16px;
-  cursor: pointer;
-  color: var(--color-primary-300);
-  transition: color 0.2s ease;
-  position: relative;
-}
-
-.info-icon:hover,
-.info-icon.active {
-  color: var(--color-secondary-300);
-}
-
-.tooltip {
-  position: absolute;
-  top: 0;
-  left: calc(100% + var(--space-3));
-  background: var(--color-white);
-  border-radius: var(--radius-sm);
-  box-shadow: var(--shadow);
-  padding: var(--space-5);
-  font-size: var(--font-size-sm);
-  color: var(--color-grey-700);
-  line-height: 1.4;
-  max-width: 250px;
-  z-index: 1001;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.2s ease;
-}
-
-.info-icon:hover .tooltip,
-.info-icon.active .tooltip {
-  opacity: 1;
-  visibility: visible;
-}
-
-/* Delete Section */
-.delete-section {
-  padding: var(--space-9);
-  border-top: 1px solid var(--color-grey-200);
-  background: var(--color-grey-50);
-}
-
-.delete-warning {
-  font-size: var(--font-size-sm);
-  color: var(--color-grey-600);
-  margin-bottom: var(--space-5);
-  line-height: 1.4;
-}
-
-.btn-delete {
-  background: var(--color-warning-300);
-  color: var(--color-white);
-  border: none;
-  padding: var(--space-5) var(--space-8);
-  border-radius: var(--radius-sm);
-  font-family: var(--font-family);
-  font-size: var(--font-size-md);
-  font-weight: var(--font-weight-semibold);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  transition: all 0.2s ease;
-}
-
-.btn-delete:hover {
-  background: var(--color-warning-400);
-}
-
-/* Icons */
-.icon {
-  width: 16px;
-  height: 16px;
-  fill: currentColor;
-}
-
-.icon-sm {
+.custom-checkbox img {
   width: 12px;
   height: 12px;
 }
 
-.icon-md {
-  width: 20px;
-  height: 20px;
+/* Tooltip */
+.tooltip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-grey-900);
+  color: var(--color-white);
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-sm);
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease;
+  z-index: 1001;
+  margin-bottom: var(--space-2);
+  max-width: 200px;
+  white-space: normal;
+}
+
+.tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 4px solid transparent;
+  border-top-color: var(--color-grey-900);
+}
+
+.info-icon-new:hover .tooltip {
+  opacity: 1;
+  visibility: visible;
 }
 
 /* Responsive helpers */
@@ -957,35 +1009,5 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     max-width: 90vw;
-  }
-}
-
-/* Responsive helpers */
-@media (max-width: 768px) {
-  .container {
-    padding: var(--space-5);
-  }
-  
-  .card {
-    padding: var(--space-7);
-  }
-
-  .dashboard-header {
-    padding: var(--space-7);
-    flex-direction: column;
-    gap: var(--space-5);
-    align-items: stretch;
-  }
-
-  .header-right {
-    justify-content: space-between;
-  }
-
-  .study-section {
-    padding: 0 var(--space-7);
-  }
-
-  .study-card {
-    padding: var(--space-7);
   }
 }
