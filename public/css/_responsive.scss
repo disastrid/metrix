@@ -1,0 +1,56 @@
+/* Responsive Design */
+
+@use 'variables' as *;
+
+@media (max-width: $breakpoint-mobile) {
+  .container {
+    padding: $space-5;
+  }
+  
+  .card {
+    padding: $space-7;
+  }
+
+  .dashboard-header {
+    padding: $space-7;
+    flex-direction: column;
+    gap: $space-5;
+    align-items: stretch;
+
+    .header-right {
+      justify-content: space-between;
+    }
+  }
+
+  .study-section {
+    padding: 0 $space-7;
+  }
+
+  .study-card {
+    padding: $space-7;
+  }
+
+  .settings-modal {
+    width: 95vw;
+    margin: $space-5;
+
+    .settings-header,
+    .settings-content {
+      padding: $space-7;
+    }
+  }
+
+  .setting-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: $space-3;
+  }
+
+  .tooltip {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 90vw;
+  }
+}

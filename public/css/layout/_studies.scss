@@ -1,0 +1,58 @@
+/* Study Layout */
+
+@use '../variables' as *;
+
+.study-section {
+  margin-bottom: $space-12;
+  padding: 0 $space-12;
+}
+
+.section-title {
+  font-size: $font-size-3xl;
+  font-weight: $font-weight-bold;
+  color: $color-grey-800;
+  margin-bottom: $space-9;
+}
+
+.study-row {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: $space-7;
+}
+
+.study-settings {
+  width: 36px;
+  height: 36px;
+  color: $color-primary-400;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: transparent;
+
+  &:hover {
+    background: $color-primary-200;
+
+    img {
+      filter: brightness(0) invert(1);
+    }
+  }
+
+  &.active {
+    background: $color-primary-200;
+
+    img {
+      filter: brightness(0) invert(1);
+    }
+  }
+
+  img {
+    width: 24px;
+    height: 24px;
+    filter: none;
+  }
+}

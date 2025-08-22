@@ -1,0 +1,85 @@
+/* Card Components */
+
+@use '../variables' as *;
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: $space-7;
+}
+
+.card {
+  background: $color-white;
+  border-radius: $radius-md;
+  box-shadow: $shadow;
+  padding: $space-9;
+}
+
+// Study Cards
+.study-card {
+  background: $color-grey-100;
+  border-radius: $radius-md;
+  padding: $space-9;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  flex: 1;
+  border: 1px solid transparent;
+  height: 72px;
+  max-height: 72px;
+
+  &:hover {
+    background: $color-white;
+    border: 1px solid $color-grey-200;
+    box-shadow: $shadow;
+    transform: translateY(-1px);
+  }
+
+  &:active .study-arrow {
+    transform: translateX(4px);
+  }
+}
+
+.study-info {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.study-name {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+  color: $color-grey-800;
+  margin-right: auto;
+}
+
+.study-meta {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-regular;
+  color: $color-grey-600;
+  position: absolute;
+  left: 500px;
+}
+
+.study-arrow {
+  width: 24px;
+  height: 24px;
+  color: $color-primary-400;
+  transition: transform 0.2s ease;
+}
+
+// Empty State
+.empty-state {
+  text-align: center;
+  padding: $space-12;
+  color: $color-grey-600;
+
+  h3 {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-medium;
+    margin-bottom: $space-3;
+  }
+}

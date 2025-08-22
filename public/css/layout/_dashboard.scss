@@ -1,0 +1,51 @@
+/* Dashboard Layout */
+
+@use '../variables' as *;
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $space-9 $space-12;
+  background: $color-white;
+  margin-bottom: $space-12;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: $space-5;
+}
+
+.brand-logo {
+  width: 48px;
+  height: 48px;
+}
+
+.brand-name {
+  font-size: $font-size-2xl;
+  font-weight: $font-weight-bold;
+  color: $color-grey-800;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: $space-8;
+}
+
+.greeting {
+  font-size: $font-size-md;
+  color: $color-grey-700;
+}
+
+.user-icon {
+  width: 32px;
+  height: 32px;
+  background: $color-grey-200;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $color-grey-600;
+}

@@ -1,0 +1,90 @@
+/* Utility Classes */
+
+@use 'variables' as *;
+
+// Typography utilities
+.text-xs { font-size: $font-size-xs; }
+.text-sm { font-size: $font-size-sm; }
+.text-base { font-size: $font-size-base; }
+.text-md { font-size: $font-size-md; }
+.text-lg { font-size: $font-size-lg; }
+.text-xl { font-size: $font-size-xl; }
+.text-2xl { font-size: $font-size-2xl; }
+.text-3xl { font-size: $font-size-3xl; }
+
+.font-light { font-weight: $font-weight-light; }
+.font-regular { font-weight: $font-weight-regular; }
+.font-medium { font-weight: $font-weight-medium; }
+.font-semibold { font-weight: $font-weight-semibold; }
+.font-bold { font-weight: $font-weight-bold; }
+
+// Color utilities
+.text-primary-300 { color: $color-primary-300; }
+.text-primary-400 { color: $color-primary-400; }
+.text-secondary-300 { color: $color-secondary-300; }
+.text-success-300 { color: $color-success-300; }
+.text-warning-300 { color: $color-warning-300; }
+.text-grey-600 { color: $color-grey-600; }
+.text-grey-700 { color: $color-grey-700; }
+.text-grey-800 { color: $color-grey-800; }
+
+.bg-primary-100 { background-color: $color-primary-100; }
+.bg-primary-300 { background-color: $color-primary-300; }
+.bg-primary-400 { background-color: $color-primary-400; }
+.bg-secondary-300 { background-color: $color-secondary-300; }
+.bg-success-300 { background-color: $color-success-300; }
+.bg-warning-300 { background-color: $color-warning-300; }
+.bg-white { background-color: $color-white; }
+.bg-grey-100 { background-color: $color-grey-100; }
+
+// Layout utilities
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.justify-center { justify-content: center; }
+
+// Gap utilities
+.gap-2 { gap: $space-2; }
+.gap-3 { gap: $space-3; }
+.gap-4 { gap: $space-4; }
+.gap-5 { gap: $space-5; }
+
+// Margin utilities
+.mt-5 { margin-top: $space-5; }
+.mb-5 { margin-bottom: $space-5; }
+.mr-5 { margin-right: $space-5; }
+.ml-5 { margin-left: $space-5; }
+
+// Padding utilities
+.p-5 { padding: $space-5; }
+.p-7 { padding: $space-7; }
+.p-9 { padding: $space-9; }
+
+// Text alignment
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+
+// Border radius
+.rounded-sm { border-radius: $radius-sm; }
+.rounded-md { border-radius: $radius-md; }
+
+// Shadow
+.shadow { box-shadow: $shadow; }
+
+// Icon utilities
+.icon {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+
+  &.icon-sm {
+    width: 12px;
+    height: 12px;
+  }
+
+  &.icon-md {
+    width: 20px;
+    height: 20px;
+  }
+}
