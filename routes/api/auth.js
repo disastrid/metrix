@@ -48,7 +48,7 @@ router.post('/login', async (req, res) => {
     }
 
     const token = jwt.sign(
-      { id: user.id, email: user.email, role: user.role }, 
+      { id: user.id, email: user.email, role: user.role, firstName: user.firstName }, 
       JWT_SECRET, 
       { expiresIn: '24h' }
     );
@@ -56,7 +56,7 @@ router.post('/login', async (req, res) => {
     res.json({ 
       success: true, 
       token,
-      user: { email: user.email, role: user.role },
+      user: { email: user.email, role: user.role, firstName: user.firstName },
       message: 'Login successful' 
     });
 
@@ -69,10 +69,10 @@ router.post('/login', async (req, res) => {
 // Setup endpoint - for creating the first admin user
 router.post('/setup', async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { firstName, email, password } = req.body;
     
-    if (!email || !password) {
-      return res.status(400).json({ error: 'Email and password required' });
+    if (!firstName || !email || !password) {
+      return res.status(400).json({ error: 'First name, email and password required' });
     }
 
     const userManager = new UserManager(req.db);
@@ -86,10 +86,10 @@ router.post('/setup', async (req, res) => {
       return res.status(400).json({ error: 'Password must be at least 8 characters' });
     }
 
-    await userManager.createUser(email, password, 'admin');
+    const result = await userManager.createUser(email, password, 'admin', firstName);
 
     const token = jwt.sign(
-      { email, role: 'admin' }, 
+      { id: result.userId, email, role: 'admin', firstName }, 
       JWT_SECRET, 
       { expiresIn: '24h' }
     );
@@ -97,7 +97,7 @@ router.post('/setup', async (req, res) => {
     res.json({ 
       success: true, 
       token,
-      user: { email, role: 'admin' },
+      user: { email, role: 'admin', firstName },
       message: 'Setup completed successfully' 
     });
 
@@ -140,6 +140,120 @@ router.get('/verify', (req, res) => {
   } catch (error) {
     res.status(401).json({ error: 'Invalid token' });
   }
+});
+
+// Middleware to verify JWT token
+function verifyToken(req, res, next) {
+  const token = req.headers.authorization?.replace('Bearer ', '');
+  
+  if (!token) {
+    return res.status(401).json({ error: 'No token provided' });
+  }
+
+  try {
+    const decoded = jwt.verify(token, JWT_SECRET);
+    req.user = decoded;
+    next();
+  } catch (error) {
+    res.status(401).json({ error: 'Invalid token' });
+  }
+}
+
+// Get current user profile
+router.get('/profile', verifyToken, async (req, res) => {
+  try {
+    const userManager = new UserManager(req.db);
+    
+    // For legacy mode (no user ID in token)
+    if (!req.user.id) {
+      return res.json({
+        email: req.user.email,
+        role: req.user.role,
+        firstName: 'Admin' // Default for legacy mode
+      });
+    }
+
+    const user = await userManager.getUserById(req.user.id);
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    res.json({
+      email: user.email,
+      role: user.role,
+      firstName: user.firstName || 'Admin'
+    });
+
+  } catch (error) {
+    console.error('Profile error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Update user profile
+router.put('/profile', verifyToken, async (req, res) => {
+  try {
+    const { firstName, email } = req.body;
+    
+    if (!req.user.id) {
+      return res.status(400).json({ error: 'Profile updates not available in legacy mode' });
+    }
+
+    const userManager = new UserManager(req.db);
+    const success = await userManager.updateUser(req.user.id, { firstName, email });
+
+    if (!success) {
+      return res.status(400).json({ error: 'Update failed' });
+    }
+
+    res.json({ success: true, message: 'Profile updated successfully' });
+
+  } catch (error) {
+    console.error('Profile update error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Update password
+router.put('/password', verifyToken, async (req, res) => {
+  try {
+    const { currentPassword, newPassword } = req.body;
+    
+    if (!currentPassword || !newPassword) {
+      return res.status(400).json({ error: 'Current password and new password required' });
+    }
+
+    if (!req.user.id) {
+      return res.status(400).json({ error: 'Password updates not available in legacy mode' });
+    }
+
+    if (newPassword.length < 8) {
+      return res.status(400).json({ error: 'New password must be at least 8 characters' });
+    }
+
+    const userManager = new UserManager(req.db);
+    const success = await userManager.updatePassword(req.user.id, currentPassword, newPassword);
+
+    if (!success) {
+      return res.status(400).json({ error: 'Password update failed' });
+    }
+
+    res.json({ success: true, message: 'Password updated successfully' });
+
+  } catch (error) {
+    if (error.message === 'Current password is incorrect') {
+      return res.status(400).json({ error: error.message });
+    }
+    console.error('Password update error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Logout endpoint (client-side mainly, but can blacklist tokens in future)
+router.post('/logout', verifyToken, (req, res) => {
+  // For now, just confirm the token is valid
+  // In the future, we could maintain a blacklist of invalidated tokens
+  res.json({ success: true, message: 'Logged out successfully' });
 });
 
 module.exports = router;

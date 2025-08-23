@@ -24,9 +24,21 @@
             <div class="brand-name">Metrix</div>
         </div>
         <div class="header-right">
-            <div class="greeting">Hi Dave!</div>
-            <div class="user-icon">
-                <img src="/icons/account.svg" alt="User account">
+            <div class="greeting" id="userGreeting">Hi Admin!</div>
+            <div class="user-menu">
+                <div class="user-icon" id="userMenuToggle">
+                    <img src="/icons/account.svg" alt="User account">
+                </div>
+                <div class="user-dropdown" id="userDropdown" style="display: none;">
+                    <div class="dropdown-item" onclick="openAccountSettings()">
+                        <img src="/icons/sliders.svg" alt="Settings" class="dropdown-icon">
+                        Settings
+                    </div>
+                    <div class="dropdown-item" onclick="logout()">
+                        <img src="/icons/arrow-left.svg" alt="Logout" class="dropdown-icon">
+                        Logout
+                    </div>
+                </div>
             </div>
             <button id="createStudyBtn" class="btn btn-secondary">
                 Create study
@@ -48,6 +60,57 @@
         <h2 class="section-title">Completed Studies</h2>
         <div id="completedStudies">
             <!-- Completed studies will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Account Settings Modal -->
+    <div id="accountSettingsModal" class="settings-overlay" style="display: none;">
+        <div class="settings-modal">
+            <div class="settings-header">
+                <h3 class="settings-title">Account Settings</h3>
+                <button class="close-btn" onclick="closeAccountSettings()">
+                    <img src="/icons/minus.svg" alt="Close" style="width: 24px; height: 24px;">
+                </button>
+            </div>
+            
+            <div class="settings-content">
+                <div class="settings-section">
+                    <h4>Profile Information</h4>
+                    <form id="profileForm" onsubmit="updateProfile(event)">
+                        <div class="form-group">
+                            <label for="profileFirstName" class="form-label">First Name</label>
+                            <input type="text" id="profileFirstName" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="profileEmail" class="form-label">Email</label>
+                            <input type="email" id="profileEmail" class="form-input" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update Profile</button>
+                    </form>
+                </div>
+                
+                <div class="settings-section">
+                    <h4>Change Password</h4>
+                    <form id="passwordForm" onsubmit="updatePassword(event)">
+                        <div class="form-group">
+                            <label for="currentPassword" class="form-label">Current Password</label>
+                            <input type="password" id="currentPassword" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="newPassword" class="form-label">New Password</label>
+                            <input type="password" id="newPassword" class="form-input" minlength="8" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmNewPassword" class="form-label">Confirm New Password</label>
+                            <input type="password" id="confirmNewPassword" class="form-input" minlength="8" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update Password</button>
+                    </form>
+                </div>
+                
+                <div id="settingsMessage" class="status" style="display: none;"></div>
+                <div id="settingsError" class="auth-error" style="display: none;"></div>
+            </div>
         </div>
     </div>
 

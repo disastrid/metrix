@@ -1,5 +1,6 @@
 let studies = [];
 let tooltips = {};
+let currentUser = null;
 
 async function loadTooltips() {
     try {
@@ -53,6 +54,7 @@ function setupTooltips() {
 
 document.addEventListener('DOMContentLoaded', async () => {
     await loadTooltips();
+    await loadCurrentUser(); // Load user first
     loadStudies();
     setupEventListeners();
     setupTooltips();
@@ -60,11 +62,20 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 function setupEventListeners() {
     document.getElementById('createStudyBtn').addEventListener('click', showCreateStudyModal);
+    document.getElementById('userMenuToggle').addEventListener('click', toggleUserDropdown);
     
     // Close modal when clicking outside
     document.addEventListener('click', (e) => {
         if (e.target.classList.contains('settings-overlay')) {
             closeSettingsModal();
+        }
+        if (e.target.classList.contains('settings-overlay')) {
+            closeAccountSettings();
+        }
+        
+        // Close user dropdown when clicking outside
+        if (!e.target.closest('.user-menu')) {
+            document.getElementById('userDropdown').style.display = 'none';
         }
     });
 }
@@ -496,5 +507,180 @@ async function createStudy(name) {
         }
     } catch (error) {
         alert(tooltips.messages.failedToCreateStudy);
+    }
+}
+
+// Authentication and user management
+async function loadCurrentUser() {
+    try {
+        const token = localStorage.getItem('authToken');
+        if (!token) {
+            redirectToLogin();
+            return;
+        }
+
+        const response = await fetch('/api/auth/profile', {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        if (!response.ok) {
+            redirectToLogin();
+            return;
+        }
+
+        currentUser = await response.json();
+        updateUserGreeting();
+    } catch (error) {
+        console.error('Failed to load user:', error);
+        redirectToLogin();
+    }
+}
+
+function updateUserGreeting() {
+    const greetingElement = document.getElementById('userGreeting');
+    if (currentUser && currentUser.firstName) {
+        greetingElement.textContent = `Hi ${currentUser.firstName}!`;
+    } else {
+        greetingElement.textContent = 'Hi Admin!';
+    }
+}
+
+function redirectToLogin() {
+    localStorage.removeItem('authToken');
+    window.location.href = '/landing.html';
+}
+
+// User dropdown menu
+function toggleUserDropdown() {
+    const dropdown = document.getElementById('userDropdown');
+    dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
+}
+
+function openAccountSettings() {
+    // Close dropdown
+    document.getElementById('userDropdown').style.display = 'none';
+    
+    // Populate form with current user data
+    if (currentUser) {
+        document.getElementById('profileFirstName').value = currentUser.firstName || '';
+        document.getElementById('profileEmail').value = currentUser.email || '';
+    }
+    
+    // Show modal
+    document.getElementById('accountSettingsModal').style.display = 'flex';
+}
+
+function closeAccountSettings() {
+    document.getElementById('accountSettingsModal').style.display = 'none';
+    clearSettingsMessages();
+}
+
+function clearSettingsMessages() {
+    document.getElementById('settingsMessage').style.display = 'none';
+    document.getElementById('settingsError').style.display = 'none';
+}
+
+async function updateProfile(event) {
+    event.preventDefault();
+    
+    const firstName = document.getElementById('profileFirstName').value;
+    const email = document.getElementById('profileEmail').value;
+    const token = localStorage.getItem('authToken');
+    
+    try {
+        const response = await fetch('/api/auth/profile', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ firstName, email })
+        });
+        
+        const data = await response.json();
+        
+        if (response.ok) {
+            showSettingsMessage('Profile updated successfully!', 'success');
+            // Reload user data to update greeting
+            await loadCurrentUser();
+        } else {
+            showSettingsMessage(data.error || 'Failed to update profile', 'error');
+        }
+    } catch (error) {
+        showSettingsMessage('Connection error. Please try again.', 'error');
+    }
+}
+
+async function updatePassword(event) {
+    event.preventDefault();
+    
+    const currentPassword = document.getElementById('currentPassword').value;
+    const newPassword = document.getElementById('newPassword').value;
+    const confirmNewPassword = document.getElementById('confirmNewPassword').value;
+    const token = localStorage.getItem('authToken');
+    
+    if (newPassword !== confirmNewPassword) {
+        showSettingsMessage('New passwords do not match', 'error');
+        return;
+    }
+    
+    try {
+        const response = await fetch('/api/auth/password', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ currentPassword, newPassword })
+        });
+        
+        const data = await response.json();
+        
+        if (response.ok) {
+            showSettingsMessage('Password updated successfully!', 'success');
+            // Clear the form
+            document.getElementById('passwordForm').reset();
+        } else {
+            showSettingsMessage(data.error || 'Failed to update password', 'error');
+        }
+    } catch (error) {
+        showSettingsMessage('Connection error. Please try again.', 'error');
+    }
+}
+
+function showSettingsMessage(message, type) {
+    clearSettingsMessages();
+    
+    if (type === 'success') {
+        const messageDiv = document.getElementById('settingsMessage');
+        messageDiv.textContent = message;
+        messageDiv.className = 'status status-success';
+        messageDiv.style.display = 'block';
+    } else {
+        const errorDiv = document.getElementById('settingsError');
+        errorDiv.textContent = message;
+        errorDiv.style.display = 'block';
+    }
+}
+
+async function logout() {
+    const token = localStorage.getItem('authToken');
+    
+    try {
+        // Call logout endpoint
+        await fetch('/api/auth/logout', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+    } catch (error) {
+        console.error('Logout error:', error);
+    } finally {
+        // Always clear local storage and redirect
+        localStorage.removeItem('authToken');
+        window.location.href = '/landing.html';
     }
 }
