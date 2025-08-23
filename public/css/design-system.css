@@ -911,7 +911,7 @@ body {
 }
 
 .brand-name {
-  font-size: 28px;
+  font-size: 30px;
   font-weight: 500;
   color: #292831;
 }
@@ -1016,14 +1016,16 @@ body {
   text-align: center;
 }
 
-.brand-logo {
+.landing-page .brand-logo,
+.auth-logo-section .brand-logo {
   width: 300px;
   height: auto;
   margin: 0 auto;
   display: block;
 }
 
-.brand-name {
+.landing-page .brand-name,
+.auth-logo-section .brand-name {
   font-size: 48px;
   font-weight: 600;
   color: #292831;

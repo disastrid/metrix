@@ -35,9 +35,44 @@
     </div>
 
     <script>
-        function goToLogin() {
-            window.location.href = '/login.html';
+        // Check setup status and redirect appropriately
+        async function checkSetupStatus() {
+            try {
+                const response = await fetch('/api/auth/setup-status');
+                const data = await response.json();
+                
+                if (data.setupRequired) {
+                    // Setup required, hide create account option
+                    const createAccountLink = document.querySelector('.create-account-link');
+                    if (createAccountLink) {
+                        createAccountLink.style.display = 'none';
+                    }
+                }
+            } catch (error) {
+                console.error('Error checking setup status:', error);
+            }
         }
+
+        function goToLogin() {
+            // Check if setup is required first
+            fetch('/api/auth/setup-status')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.setupRequired) {
+                        window.location.href = '/setup.html';
+                    } else {
+                        window.location.href = '/login.html';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    // Fallback to login page
+                    window.location.href = '/login.html';
+                });
+        }
+
+        // Check setup status when page loads
+        checkSetupStatus();
     </script>
 </body>
 </html>

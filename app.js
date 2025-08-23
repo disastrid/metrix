@@ -63,6 +63,42 @@ app.use('/api/studies', studiesApi);
 app.use('/api/participant', participantApi);
 app.use('/api/auth', authApi);
 
+// Serve specific pages (before static middleware)
+app.get('/participant/:code', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/participant.html'));
+});
+
+// Serve authentication pages
+app.get('/login', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/login.html'));
+});
+
+app.get('/setup', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/setup.html'));
+});
+
+app.get('/create-account', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/create-account.html'));
+});
+
+app.get('/forgot-password', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/forgot-password.html'));
+});
+
+app.get('/landing', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/landing.html'));
+});
+
+// Serve admin login (legacy route)
+app.get('/admin', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/admin.html'));
+});
+
+// Serve admin dashboard
+app.get('/admin/dashboard', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/admin-dashboard-new.html'));
+});
+
 // Serve Vue.js frontend (built files go in public/)
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/js', express.static(path.join(__dirname, 'public/js'), {
@@ -72,21 +108,6 @@ app.use('/js', express.static(path.join(__dirname, 'public/js'), {
     }
   }
 }));
-
-// Serve participant interface
-app.get('/participant/:code', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public/participant.html'));
-});
-
-// Serve admin login
-app.get('/admin', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public/admin.html'));
-});
-
-// Serve admin dashboard
-app.get('/admin/dashboard', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public/admin-dashboard-new.html'));
-});
 
 // Catch-all handler: send back Vue's index.html file for client-side routing
 app.get('*', (req, res) => {

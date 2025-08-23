@@ -61,6 +61,39 @@
     </div>
 
     <script>
+        let isLegacyMode = false;
+
+        // Check if we're in legacy mode (no users exist)
+        async function checkLegacyMode() {
+            try {
+                const response = await fetch('/api/auth/setup-status');
+                const data = await response.json();
+                
+                if (data.setupRequired && data.hasLegacyPassword) {
+                    isLegacyMode = true;
+                    // Hide email field and update UI for legacy mode
+                    const emailGroup = document.querySelector('div.form-group:first-of-type');
+                    if (emailGroup) {
+                        emailGroup.style.display = 'none';
+                    }
+                    
+                    // Update title
+                    const title = document.querySelector('.auth-title');
+                    if (title) {
+                        title.textContent = 'Admin Login';
+                    }
+                    
+                    // Update password placeholder
+                    const passwordInput = document.getElementById('password');
+                    if (passwordInput) {
+                        passwordInput.placeholder = 'Enter admin password';
+                    }
+                }
+            } catch (error) {
+                console.error('Error checking legacy mode:', error);
+            }
+        }
+
         function goBack() {
             window.location.href = '/landing.html';
         }
@@ -75,13 +108,18 @@
             // Clear previous errors
             errorDiv.style.display = 'none';
             
+            // Prepare request body based on mode
+            const requestBody = isLegacyMode ? 
+                { password } : 
+                { email, password };
+            
             try {
                 const response = await fetch('/api/auth/login', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ email, password })
+                    body: JSON.stringify(requestBody)
                 });
                 
                 const data = await response.json();
@@ -104,6 +142,9 @@
             errorDiv.textContent = message;
             errorDiv.style.display = 'block';
         }
+
+        // Check legacy mode when page loads
+        checkLegacyMode();
     </script>
 </body>
 </html>

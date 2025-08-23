@@ -78,46 +78,46 @@
             window.location.href = '/landing.html';
         }
 
+        // Check if setup is complete and show appropriate message
+        async function checkSetupStatus() {
+            try {
+                const response = await fetch('/api/auth/setup-status');
+                const data = await response.json();
+                
+                if (!data.setupRequired) {
+                    // Setup is complete, show message about admin-managed accounts
+                    document.querySelector('.auth-form').innerHTML = `
+                        <h2 class="auth-title">Account Creation</h2>
+                        <div class="status status-info">
+                            <p>Account creation is managed by your administrator. Please contact them to create a new account.</p>
+                            <div style="margin-top: 16px;">
+                                <a href="/login.html" class="btn btn-primary">Go to Login</a>
+                            </div>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error('Error checking setup status:', error);
+            }
+        }
+
         async function handleCreateAccount(event) {
             event.preventDefault();
             
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-            const errorDiv = document.getElementById('createAccountError');
-            
-            // Clear previous errors
-            errorDiv.style.display = 'none';
-            
-            // Validate passwords match
-            if (password !== confirmPassword) {
-                showError('Passwords do not match');
-                return;
-            }
-            
+            // Redirect to setup if this is the first account
             try {
-                const response = await fetch('/api/auth/register', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ name, email, password })
-                });
-                
+                const response = await fetch('/api/auth/setup-status');
                 const data = await response.json();
                 
-                if (response.ok) {
-                    // Store authentication token
-                    localStorage.setItem('authToken', data.token);
-                    // Redirect to dashboard
-                    window.location.href = '/admin-dashboard-new.html';
-                } else {
-                    showError(data.error || 'Account creation failed. Please try again.');
+                if (data.setupRequired) {
+                    window.location.href = '/setup.html';
+                    return;
                 }
             } catch (error) {
-                showError('Connection error. Please try again.');
+                console.error('Error:', error);
             }
+            
+            showError('Account creation is managed by your administrator.');
         }
         
         function showError(message) {
@@ -125,6 +125,9 @@
             errorDiv.textContent = message;
             errorDiv.style.display = 'block';
         }
+
+        // Check setup status when page loads
+        checkSetupStatus();
     </script>
 </body>
 </html>
