@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metrix</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/design-system.css">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512.png">
+</head>
+<body class="landing-page">
+    <div class="landing-container">
+        <div class="landing-content">
+            <div class="logo-container">
+                <img src="/logo_with_text.svg" alt="Metrix" class="brand-logo">
+            </div>
+            
+            <div class="landing-actions">
+                <button class="btn btn-primary" onclick="goToLogin()">
+                    Log In
+                    <div class="icon">
+                        <img src="/icons/arrow-right.svg" alt="Arrow right">
+                    </div>
+                </button>
+                
+                <a href="/create-account.html" class="create-account-link">Create an account</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function goToLogin() {
+            window.location.href = '/login.html';
+        }
+    </script>
+</body>
+</html>

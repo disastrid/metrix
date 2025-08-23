@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log in - Metrix</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/design-system.css">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512.png">
+</head>
+<body class="auth-page">
+    <div class="auth-container">
+        <div class="auth-content">
+            <!-- Left side - Logo -->
+            <div class="auth-logo-section">
+                <div class="logo-container">
+                    <img src="/logo_with_text.svg" alt="Metrix" class="brand-logo">
+                </div>
+            </div>
+            
+            <!-- Right side - Login form -->
+            <div class="auth-form-section">
+                <div class="auth-form">
+                    <button class="back-btn" onclick="goBack()">
+                        <img src="/icons/arrow-left.svg" alt="Back">
+                    </button>
+                    
+                    <h2 class="auth-title">Log in</h2>
+                    
+                    <form id="loginForm" onsubmit="handleLogin(event)">
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" id="email" name="email" class="form-input" placeholder="Placeholder text" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" id="password" name="password" class="form-input" placeholder="Placeholder text" required>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary auth-submit-btn">
+                            Log in
+                            <div class="icon">
+                                <img src="/icons/arrow-right.svg" alt="Arrow right">
+                            </div>
+                        </button>
+                        
+                        <a href="/forgot-password.html" class="forgot-password-link">Forgot password?</a>
+                        
+                        <div id="loginError" class="auth-error" style="display: none;"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function goBack() {
+            window.location.href = '/landing.html';
+        }
+
+        async function handleLogin(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const errorDiv = document.getElementById('loginError');
+            
+            // Clear previous errors
+            errorDiv.style.display = 'none';
+            
+            try {
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, password })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    // Store authentication token
+                    localStorage.setItem('authToken', data.token);
+                    // Redirect to dashboard
+                    window.location.href = '/admin-dashboard-new.html';
+                } else {
+                    showError(data.error || 'Login failed. Please try again.');
+                }
+            } catch (error) {
+                showError('Connection error. Please try again.');
+            }
+        }
+        
+        function showError(message) {
+            const errorDiv = document.getElementById('loginError');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+        }
+    </script>
+</body>
+</html>

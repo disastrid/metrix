@@ -114,3 +114,6 @@ temp/
 Thumbs.db
 ehthumbs.db
 Desktop.ini
+
+# Design files
+design/
